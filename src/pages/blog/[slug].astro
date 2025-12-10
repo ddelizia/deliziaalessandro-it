@@ -1,0 +1,258 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { Badge } from "../../components/ui/badge";
+import { Separator } from "../../components/ui/separator";
+import { Button } from "../../components/ui/button";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: post,
+    }));
+}
+
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+
+const formatDate = (date: Date) => {
+    return date.toLocaleDateString("it-IT", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+};
+
+// Get related posts (same tags, excluding current)
+const allPosts = await getCollection("blog");
+const relatedPosts = allPosts
+    .filter((p) => p.slug !== post.slug)
+    .filter((p) => p.data.tags.some((tag) => post.data.tags.includes(tag)))
+    .slice(0, 2);
+---
+
+<Layout
+    title={`${post.data.title} - Blog Delizia Alessandro`}
+    description={post.data.description}
+>
+    <Header />
+
+    <main class="pt-24 pb-20">
+        <article class="container mx-auto px-4">
+            <!-- Breadcrumb -->
+            <nav class="mb-8">
+                <ol
+                    class="flex items-center gap-2 text-sm text-muted-foreground"
+                >
+                    <li>
+                        <a href="/" class="hover:text-primary transition-colors"
+                            >Home</a
+                        >
+                    </li>
+                    <li>/</li>
+                    <li>
+                        <a
+                            href="/blog"
+                            class="hover:text-primary transition-colors">Blog</a
+                        >
+                    </li>
+                    <li>/</li>
+                    <li
+                        class="text-foreground font-medium truncate max-w-[200px]"
+                    >
+                        {post.data.title}
+                    </li>
+                </ol>
+            </nav>
+
+            <!-- Article Header -->
+            <header class="max-w-3xl mx-auto text-center mb-12">
+                <div class="flex flex-wrap justify-center gap-2 mb-6">
+                    {
+                        post.data.tags.map((tag) => (
+                            <Badge variant="secondary">{tag}</Badge>
+                        ))
+                    }
+                </div>
+                <h1
+                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight"
+                >
+                    {post.data.title}
+                </h1>
+                <p class="text-lg text-muted-foreground mb-8">
+                    {post.data.description}
+                </p>
+                <div
+                    class="flex items-center justify-center gap-4 text-sm text-muted-foreground"
+                >
+                    <span>{post.data.author}</span>
+                    <span>•</span>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                        {formatDate(post.data.pubDate)}
+                    </time>
+                </div>
+            </header>
+
+            <Separator className="max-w-3xl mx-auto mb-12" />
+
+            <!-- Article Content -->
+            <div class="max-w-3xl mx-auto article-content">
+                <Content />
+            </div>
+
+            <Separator className="max-w-3xl mx-auto my-12" />
+
+            <!-- Author / CTA -->
+            <div
+                class="max-w-3xl mx-auto bg-muted/50 rounded-2xl p-8 text-center"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center"
+                >
+                    <span class="text-primary-foreground font-bold text-xl"
+                        >DA</span
+                    >
+                </div>
+                <h3 class="font-bold text-xl text-foreground mb-2">
+                    Delizia Alessandro S.r.l.
+                </h3>
+                <p class="text-muted-foreground mb-6 max-w-md mx-auto">
+                    Da oltre 70 anni, il tuo partner di fiducia per materiali
+                    edili e arredobagno ad Amantea.
+                </p>
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
+                    <a href="/#contatti">
+                        <Button client:load>Richiedi Informazioni</Button>
+                    </a>
+                    <a href="/#showroom">
+                        <Button client:load variant="outline"
+                            >Visita lo Showroom</Button
+                        >
+                    </a>
+                </div>
+            </div>
+
+            <!-- Related Posts -->
+            {
+                relatedPosts.length > 0 && (
+                    <div class="max-w-3xl mx-auto mt-16">
+                        <h3 class="text-xl font-bold text-foreground mb-6">
+                            Articoli Correlati
+                        </h3>
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            {relatedPosts.map((related) => (
+                                <a
+                                    href={`/blog/${related.slug}`}
+                                    class="group p-6 rounded-xl border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                                >
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        {related.data.tags
+                                            .slice(0, 2)
+                                            .map((tag) => (
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="text-xs"
+                                                >
+                                                    {tag}
+                                                </Badge>
+                                            ))}
+                                    </div>
+                                    <h4 class="font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-2">
+                                        {related.data.title}
+                                    </h4>
+                                    <p class="text-sm text-muted-foreground line-clamp-2">
+                                        {related.data.description}
+                                    </p>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <!-- Back to Blog -->
+            <div class="max-w-3xl mx-auto mt-12 text-center">
+                <a
+                    href="/blog"
+                    class="text-primary font-medium hover:underline"
+                >
+                    ← Torna al Blog
+                </a>
+            </div>
+        </article>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style is:global>
+    .article-content h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--foreground);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    .article-content h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--foreground);
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    .article-content h3 {
+        font-size: 1.375rem;
+        font-weight: 600;
+        color: var(--foreground);
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+    .article-content p {
+        font-size: 1.125rem;
+        color: var(--muted-foreground);
+        margin-bottom: 1.25rem;
+        line-height: 1.75;
+    }
+    .article-content ul,
+    .article-content ol {
+        margin: 1.25rem 0;
+        padding-left: 1.5rem;
+    }
+    .article-content li {
+        font-size: 1.125rem;
+        color: var(--muted-foreground);
+        margin-bottom: 0.5rem;
+        line-height: 1.75;
+    }
+    .article-content ul li {
+        list-style-type: disc;
+    }
+    .article-content ol li {
+        list-style-type: decimal;
+    }
+    .article-content strong {
+        font-weight: 600;
+        color: var(--foreground);
+    }
+    .article-content a {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+    .article-content a:hover {
+        opacity: 0.8;
+    }
+    .article-content hr {
+        margin: 2rem 0;
+        border-color: var(--border);
+    }
+</style>

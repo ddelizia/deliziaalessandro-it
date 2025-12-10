@@ -1,0 +1,305 @@
+---
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { Card, CardContent } from "./ui/card";
+---
+
+<section id="contatti" class="py-20 lg:py-32 bg-muted/30">
+    <div class="container mx-auto px-4">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <span
+                class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+            >
+                Contatti
+            </span>
+            <h2
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+            >
+                Parliamo del tuo progetto
+            </h2>
+            <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Richiedi un preventivo gratuito o prenota una visita nel nostro
+                showroom. Siamo a tua disposizione per qualsiasi informazione.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+            <!-- Contact Form -->
+            <div>
+                <Card className="border-border/50">
+                    <CardContent className="p-6 sm:p-8">
+                        <h3 class="text-xl font-bold text-foreground mb-6">
+                            Invia un messaggio
+                        </h3>
+                        <form class="space-y-6" id="contact-form">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="name"
+                                        class="block text-sm font-medium text-foreground mb-2"
+                                        >Nome *</label
+                                    >
+                                    <Input
+                                        id="name"
+                                        name="name"
+                                        placeholder="Il tuo nome"
+                                        required
+                                        className="w-full"
+                                    />
+                                </div>
+                                <div>
+                                    <label
+                                        for="phone"
+                                        class="block text-sm font-medium text-foreground mb-2"
+                                        >Telefono</label
+                                    >
+                                    <Input
+                                        id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        placeholder="+39 000 000 0000"
+                                        className="w-full"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    for="email"
+                                    class="block text-sm font-medium text-foreground mb-2"
+                                    >Email *</label
+                                >
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    placeholder="la.tua@email.it"
+                                    required
+                                    className="w-full"
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    for="subject"
+                                    class="block text-sm font-medium text-foreground mb-2"
+                                    >Oggetto</label
+                                >
+                                <Input
+                                    id="subject"
+                                    name="subject"
+                                    placeholder="Di cosa hai bisogno?"
+                                    className="w-full"
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    for="message"
+                                    class="block text-sm font-medium text-foreground mb-2"
+                                    >Messaggio *</label
+                                >
+                                <Textarea
+                                    id="message"
+                                    name="message"
+                                    placeholder="Descrivi il tuo progetto o la tua richiesta..."
+                                    rows={5}
+                                    required
+                                    className="w-full resize-none"
+                                />
+                            </div>
+                            <Button
+                                client:load
+                                type="submit"
+                                className="w-full"
+                                size="lg"
+                            >
+                                Invia Richiesta
+                            </Button>
+                            <p
+                                class="text-xs text-muted-foreground text-center"
+                            >
+                                I campi contrassegnati con * sono obbligatori
+                            </p>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-8">
+                <!-- Address -->
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0"
+                    >
+                        <svg
+                            class="w-6 h-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                            ></path>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-foreground mb-1">
+                            Indirizzo
+                        </h4>
+                        <p class="text-muted-foreground">
+                            Via Giuseppe Mazzini, 62/66<br />
+                            87032 Amantea (CS)<br />
+                            Località Oliva - Campora S.G.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0"
+                    >
+                        <svg
+                            class="w-6 h-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-foreground mb-1">
+                            Telefono
+                        </h4>
+                        <a
+                            href="tel:+390982421234"
+                            class="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                            +39 0982 421234
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0"
+                    >
+                        <svg
+                            class="w-6 h-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-foreground mb-1">
+                            Email
+                        </h4>
+                        <a
+                            href="mailto:info@deliziaalessandro.it"
+                            class="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                            info@deliziaalessandro.it
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hours -->
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0"
+                    >
+                        <svg
+                            class="w-6 h-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-foreground mb-1">
+                            Orari di Apertura
+                        </h4>
+                        <div class="text-muted-foreground space-y-1">
+                            <p>
+                                <span class="font-medium text-foreground"
+                                    >Lun - Ven:</span
+                                > 08:00 - 13:00 / 15:00 - 19:00
+                            </p>
+                            <p>
+                                <span class="font-medium text-foreground"
+                                    >Sabato:</span
+                                > 08:00 - 13:00
+                            </p>
+                            <p>
+                                <span class="font-medium text-foreground"
+                                    >Domenica:</span
+                                > Chiuso
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map placeholder -->
+                <div
+                    class="rounded-xl overflow-hidden border border-border aspect-video bg-muted flex items-center justify-center"
+                >
+                    <div class="text-center p-6">
+                        <svg
+                            class="w-12 h-12 mx-auto text-muted-foreground mb-3"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                            ></path>
+                        </svg>
+                        <p class="text-muted-foreground text-sm">Google Maps</p>
+                        <a
+                            href="https://maps.google.com/?q=Via+Giuseppe+Mazzini+62+Amantea"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-primary text-sm font-medium hover:underline"
+                        >
+                            Apri in Google Maps →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

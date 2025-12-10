@@ -1,0 +1,49 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Delizia Alessandro S.r.l. - Materiali Edili e Arredobagno dal 1950",
+  description = "Dal 1950 il tuo punto di riferimento per materiali edili, arredobagno e finiture ad Amantea, Cosenza. Qualità, esperienza e servizio."
+} = Astro.props;
+
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Delizia Alessandro S.r.l." />
+    <meta name="keywords" content="materiali edili, arredobagno, ceramiche, laterizi, cemento, parquet, Amantea, Cosenza, Calabria" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <title>{title}</title>
+    
+    <style>
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <slot />
+  </body>
+</html>

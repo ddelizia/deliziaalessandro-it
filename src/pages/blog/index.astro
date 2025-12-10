@@ -1,0 +1,177 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "../../components/ui/card";
+import { Badge } from "../../components/ui/badge";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// Get unique tags with counts
+const tagCounts = posts.reduce(
+    (acc, post) => {
+        post.data.tags.forEach((tag) => {
+            acc[tag] = (acc[tag] || 0) + 1;
+        });
+        return acc;
+    },
+    {} as Record<string, number>,
+);
+
+const formatDate = (date: Date) => {
+    return date.toLocaleDateString("it-IT", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+};
+---
+
+<Layout
+    title="Blog - Delizia Alessandro S.r.l."
+    description="Guide, consigli e novità dal mondo dell'edilizia, arredobagno e ristrutturazioni."
+>
+    <Header />
+
+    <main class="pt-24 pb-20">
+        <div class="container mx-auto px-4">
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+                >
+                    Blog
+                </span>
+                <h1
+                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+                >
+                    Notizie e Consigli
+                </h1>
+                <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Guide pratiche, novità del settore e consigli degli esperti
+                    per i tuoi progetti di costruzione e ristrutturazione.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Posts Grid -->
+                <div class="lg:col-span-3">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        {
+                            posts.map((post) => (
+                                <a href={`/blog/${post.slug}`} class="group">
+                                    <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30">
+                                        <CardHeader>
+                                            <div class="flex flex-wrap gap-2 mb-3">
+                                                {post.data.tags
+                                                    .slice(0, 2)
+                                                    .map((tag) => (
+                                                        <Badge
+                                                            variant="secondary"
+                                                            className="text-xs"
+                                                        >
+                                                            {tag}
+                                                        </Badge>
+                                                    ))}
+                                            </div>
+                                            <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors line-clamp-2">
+                                                {post.data.title}
+                                            </CardTitle>
+                                            <CardDescription className="line-clamp-2">
+                                                {post.data.description}
+                                            </CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div class="flex items-center justify-between text-sm text-muted-foreground">
+                                                <span>
+                                                    {formatDate(
+                                                        post.data.pubDate,
+                                                    )}
+                                                </span>
+                                                <span class="text-primary font-medium group-hover:underline">
+                                                    Leggi →
+                                                </span>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-24">
+                        <Card className="border-border/50">
+                            <CardHeader>
+                                <CardTitle className="text-lg"
+                                    >Categorie</CardTitle
+                                >
+                            </CardHeader>
+                            <CardContent>
+                                <div class="space-y-2">
+                                    {
+                                        Object.entries(tagCounts).map(
+                                            ([tag, count]) => (
+                                                <div class="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
+                                                    <span class="text-sm text-muted-foreground capitalize">
+                                                        {tag}
+                                                    </span>
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="text-xs"
+                                                    >
+                                                        {count}
+                                                    </Badge>
+                                                </div>
+                                            ),
+                                        )
+                                    }
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        <!-- CTA Card -->
+                        <Card
+                            className="mt-6 bg-primary text-primary-foreground border-0"
+                        >
+                            <CardContent className="p-6 text-center">
+                                <h4 class="font-bold mb-2">Hai un progetto?</h4>
+                                <p
+                                    class="text-sm text-primary-foreground/80 mb-4"
+                                >
+                                    Contattaci per una consulenza gratuita
+                                </p>
+                                <a
+                                    href="/#contatti"
+                                    class="inline-block px-4 py-2 bg-white text-primary rounded-md font-medium text-sm hover:bg-white/90 transition-colors"
+                                >
+                                    Contattaci
+                                </a>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="mt-16 text-center">
+                <a href="/" class="text-primary font-medium hover:underline">
+                    ← Torna alla Home
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

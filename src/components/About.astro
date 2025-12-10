@@ -1,0 +1,146 @@
+---
+import { Separator } from "./ui/separator";
+---
+
+<section id="chi-siamo" class="py-20 lg:py-32 bg-background">
+    <div class="container mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <!-- Timeline -->
+            <div class="order-2 lg:order-1">
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-8 top-0 bottom-0 w-px bg-border">
+                    </div>
+
+                    <!-- Timeline items -->
+                    <div class="space-y-12">
+                        <div class="relative flex gap-6">
+                            <div
+                                class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg flex-shrink-0 z-10"
+                            >
+                                1950
+                            </div>
+                            <div class="pt-3">
+                                <h4
+                                    class="font-bold text-lg text-foreground mb-2"
+                                >
+                                    La Fondazione
+                                </h4>
+                                <p class="text-muted-foreground">
+                                    Nasce Delizia Alessandro, una piccola
+                                    rivendita di materiali edili ad Amantea,
+                                    fondata sulla passione per il settore e
+                                    l'impegno verso la qualità.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-6">
+                            <div
+                                class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground font-bold text-lg flex-shrink-0 z-10"
+                            >
+                                1980
+                            </div>
+                            <div class="pt-3">
+                                <h4
+                                    class="font-bold text-lg text-foreground mb-2"
+                                >
+                                    L'Espansione
+                                </h4>
+                                <p class="text-muted-foreground">
+                                    Ampliamento dell'attività con l'introduzione
+                                    del reparto arredobagno e l'apertura del
+                                    primo showroom dedicato alle finiture.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-6">
+                            <div
+                                class="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold text-lg flex-shrink-0 z-10"
+                            >
+                                Oggi
+                            </div>
+                            <div class="pt-3">
+                                <h4
+                                    class="font-bold text-lg text-foreground mb-2"
+                                >
+                                    Partner di Fiducia
+                                </h4>
+                                <p class="text-muted-foreground">
+                                    Tre generazioni di esperienza al servizio di
+                                    professionisti e privati. Parte di Gruppo
+                                    MADE Italia e Gruppo Delta per garantire
+                                    sempre il meglio.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="order-1 lg:order-2">
+                <span
+                    class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+                >
+                    Chi Siamo
+                </span>
+                <h2
+                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+                >
+                    Oltre 70 anni di <span class="text-primary">esperienza</span
+                    >
+                </h2>
+                <p class="text-lg text-muted-foreground mb-8 leading-relaxed">
+                    Dal 1950, Delizia Alessandro S.r.l. è il punto di
+                    riferimento per aziende e privati che cercano materiali
+                    edili di qualità, soluzioni per l'arredobagno e finiture
+                    d'eccellenza nel territorio di Amantea e della provincia di
+                    Cosenza.
+                </p>
+                <p class="text-lg text-muted-foreground mb-8 leading-relaxed">
+                    La nostra forza? L'esperienza tramandata di generazione in
+                    generazione, unita alla continua ricerca di innovazione e
+                    all'attenzione verso le esigenze di ogni cliente.
+                </p>
+
+                <Separator className="my-8" />
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div
+                            class="text-3xl sm:text-4xl font-bold text-primary mb-1"
+                        >
+                            70+
+                        </div>
+                        <div class="text-sm text-muted-foreground">
+                            Anni di attività
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div
+                            class="text-3xl sm:text-4xl font-bold text-primary mb-1"
+                        >
+                            500+
+                        </div>
+                        <div class="text-sm text-muted-foreground">
+                            mq Showroom
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div
+                            class="text-3xl sm:text-4xl font-bold text-primary mb-1"
+                        >
+                            1000+
+                        </div>
+                        <div class="text-sm text-muted-foreground">
+                            Clienti soddisfatti
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

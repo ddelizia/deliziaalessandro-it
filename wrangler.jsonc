@@ -1,0 +1,21 @@
+{
+	"main": "dist/_worker.js/index.js",
+	"name": "ddelizialessandro-it",
+  "compatibility_date": "2025-12-10",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "./dist"
+	},
+	"observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    }
+  }
+}
