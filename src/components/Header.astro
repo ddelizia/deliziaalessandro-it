@@ -1,56 +1,86 @@
 ---
-import { Button } from './ui/button';
+import { Button } from "./ui/button";
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border"
+>
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-16 lg:h-20">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3">
-        <div class="w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-lg flex items-center justify-center">
-          <span class="text-primary-foreground font-bold text-lg lg:text-xl">DA</span>
+        <div
+          class="w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-lg flex items-center justify-center"
+        >
+          <span class="text-primary-foreground font-bold text-lg lg:text-xl"
+            >DA</span
+          >
         </div>
         <div class="hidden sm:block">
-          <span class="font-bold text-lg lg:text-xl text-foreground">Delizia Alessandro</span>
+          <span class="font-bold text-lg lg:text-xl text-foreground"
+            >Delizia Alessandro</span
+          >
           <span class="block text-xs text-muted-foreground">Dal 1950</span>
         </div>
       </a>
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-8">
-        <a href="#servizi" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+        <a
+          href="/#servizi"
+          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
           Servizi
         </a>
-        <a href="#showroom" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+        <a
+          href="/#showroom"
+          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
           Showroom
         </a>
-        <a href="#chi-siamo" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+        <a
+          href="/#chi-siamo"
+          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
           Chi Siamo
         </a>
-        <a href="/blog" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+        <a
+          href="/blog"
+          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
           Blog
         </a>
-        <a href="#contatti" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+        <a
+          href="/#contatti"
+          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+        >
           Contatti
         </a>
       </nav>
 
       <!-- CTA Button -->
       <div class="flex items-center gap-4">
-        <a href="#contatti" class="hidden sm:inline-flex">
-          <Button client:load>
-            Richiedi Preventivo
-          </Button>
+        <a href="/#contatti" class="hidden sm:inline-flex">
+          <Button client:load> Richiedi Preventivo </Button>
         </a>
-        
+
         <!-- Mobile Menu Button -->
-        <button 
+        <button
           id="mobile-menu-button"
           class="lg:hidden p-2 rounded-md hover:bg-muted transition-colors"
           aria-label="Menu"
         >
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
@@ -60,43 +90,56 @@ import { Button } from './ui/button';
   <!-- Mobile Navigation -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-border">
     <nav class="container mx-auto px-4 py-4 flex flex-col gap-4">
-      <a href="#servizi" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
+      <a
+        href="/#servizi"
+        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+      >
         Servizi
       </a>
-      <a href="#showroom" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
+      <a
+        href="/#showroom"
+        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+      >
         Showroom
       </a>
-      <a href="#chi-siamo" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
+      <a
+        href="/#chi-siamo"
+        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+      >
         Chi Siamo
       </a>
-      <a href="/blog" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
+      <a
+        href="/blog"
+        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+      >
         Blog
       </a>
-      <a href="#contatti" class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2">
+      <a
+        href="/#contatti"
+        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+      >
         Contatti
       </a>
-      <a href="#contatti" class="sm:hidden">
-        <Button client:load className="w-full">
-          Richiedi Preventivo
-        </Button>
+      <a href="/#contatti" class="sm:hidden">
+        <Button client:load className="w-full"> Richiedi Preventivo </Button>
       </a>
     </nav>
   </div>
 </header>
 
 <script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileMenuButton?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("hidden");
   });
 
   // Close mobile menu when clicking on a link
-  const mobileLinks = mobileMenu?.querySelectorAll('a');
-  mobileLinks?.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
+  const mobileLinks = mobileMenu?.querySelectorAll("a");
+  mobileLinks?.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.add("hidden");
     });
   });
 </script>

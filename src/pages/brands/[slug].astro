@@ -1,0 +1,199 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { Button } from "../../components/ui/button";
+
+export async function getStaticPaths() {
+    const brands = await getCollection("brands");
+    return brands.map((brand) => ({
+        params: { slug: brand.slug },
+        props: { brand },
+    }));
+}
+
+const { brand } = Astro.props;
+const { Content } = await brand.render();
+---
+
+<Layout
+    title={`${brand.data.name} - Delizia Alessandro S.r.l.`}
+    description={brand.data.description}
+>
+    <Header />
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="py-16 lg:py-24 bg-muted/30">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Back Link -->
+                    <a
+                        href="/#brand"
+                        class="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        Torna ai brand
+                    </a>
+
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <!-- Logo -->
+                        <div
+                            class="w-32 h-32 rounded-2xl bg-white flex items-center justify-center p-6 border border-border/50 flex-shrink-0"
+                        >
+                            {
+                                brand.data.logo ? (
+                                    <img
+                                        src={brand.data.logo}
+                                        alt={`Logo ${brand.data.name}`}
+                                        class="max-w-full max-h-full object-contain"
+                                    />
+                                ) : (
+                                    <div class="text-4xl font-bold text-primary">
+                                        {brand.data.name.charAt(0)}
+                                    </div>
+                                )
+                            }
+                        </div>
+
+                        <!-- Brand Info -->
+                        <div class="flex-1">
+                            <h1
+                                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+                            >
+                                {brand.data.name}
+                            </h1>
+                            <p
+                                class="text-lg text-muted-foreground leading-relaxed mb-6"
+                            >
+                                {brand.data.description}
+                            </p>
+                            <Button asChild className="gap-2">
+                                <a
+                                    href={brand.data.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Visita il sito ufficiale
+                                    <svg
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        ></path>
+                                    </svg>
+                                </a>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-16 lg:py-24">
+            <div class="container mx-auto px-4">
+                <div
+                    class="max-w-3xl mx-auto prose prose-lg prose-slate dark:prose-invert"
+                >
+                    <Content />
+                </div>
+            </div>
+        </section>
+
+        <!-- Images Gallery -->
+        {
+            brand.data.images && brand.data.images.length > 0 && (
+                <section class="py-16 lg:py-24 bg-muted/30">
+                    <div class="container mx-auto px-4">
+                        <h2 class="text-2xl font-bold text-foreground mb-8 text-center">
+                            Galleria
+                        </h2>
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                            {brand.data.images.map(
+                                (image: string, index: number) => (
+                                    <div class="aspect-video rounded-xl overflow-hidden bg-muted">
+                                        <img
+                                            src={image}
+                                            alt={`${brand.data.name} - Immagine ${index + 1}`}
+                                            class="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                ),
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )
+        }
+
+        <!-- CTA Section -->
+        <section class="py-16 lg:py-24">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-2xl font-bold text-foreground mb-4">
+                    Interessato ai prodotti {brand.data.name}?
+                </h2>
+                <p class="text-muted-foreground mb-8 max-w-xl mx-auto">
+                    Vieni a trovarci nel nostro showroom per scoprire l'intera
+                    gamma e ricevere una consulenza personalizzata.
+                </p>
+                <Button asChild variant="outline" className="gap-2">
+                    <a href="/#contatti">
+                        Contattaci
+                        <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </Button>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .prose h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: var(--color-foreground);
+    }
+    .prose ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+    }
+    .prose ul > li {
+        margin-top: 0.5rem;
+        color: var(--color-muted-foreground);
+    }
+    .prose strong {
+        color: var(--color-foreground);
+    }
+</style>

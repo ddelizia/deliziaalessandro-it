@@ -12,4 +12,16 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+const brands = defineCollection({
+    type: 'content',
+    schema: z.object({
+        name: z.string(),
+        description: z.string(),
+        logo: z.string(),
+        website: z.string().url(),
+        images: z.array(z.string()).default([]),
+        order: z.number().default(0),
+    }),
+});
+
+export const collections = { blog, brands };
