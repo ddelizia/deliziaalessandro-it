@@ -5,17 +5,17 @@ const currentYear = new Date().getFullYear();
 
 const footerLinks = {
     servizi: [
-        { label: "Materiale Edile", href: "#servizi" },
-        { label: "Arredobagno", href: "#servizi" },
-        { label: "Finiture", href: "#servizi" },
-        { label: "Noleggio Attrezzature", href: "#servizi" },
-        { label: "Consegna in Cantiere", href: "#servizi" },
+        { label: "Materiale Edile", href: "/#servizi" },
+        { label: "Arredobagno", href: "/#servizi" },
+        { label: "Finiture", href: "/#servizi" },
+        { label: "Noleggio Attrezzature", href: "/#servizi" },
+        { label: "Consegna in Cantiere", href: "/#servizi" },
     ],
     azienda: [
-        { label: "Chi Siamo", href: "#chi-siamo" },
-        { label: "Showroom", href: "#showroom" },
+        { label: "Chi Siamo", href: "/#chi-siamo" },
+        { label: "Showroom", href: "/#showroom" },
         { label: "Blog", href: "/blog" },
-        { label: "Contatti", href: "#contatti" },
+        { label: "Contatti", href: "/#contatti" },
     ],
     contatti: [
         { label: "+39 0982 421234", href: "tel:+390982421234" },
@@ -24,12 +24,8 @@ const footerLinks = {
             href: "mailto:info@deliziaalessandro.it",
         },
         {
-            label: "Via G. Mazzini, 62/66",
-            href: "https://maps.google.com/?q=Via+Giuseppe+Mazzini+62+Amantea",
-        },
-        {
-            label: "87032 Amantea (CS)",
-            href: "https://maps.google.com/?q=Via+Giuseppe+Mazzini+62+Amantea",
+            label: "Località Oliva - Campora S.G., 87032 Amantea (CS)",
+            href: "https://www.google.com/maps/place/Delizia+Alessandro+Srl/@39.0792913,16.0874106,691m/data=!3m1!1e3!4m6!3m5!1s0x133fc3bfd4efc9b7:0x8abe2d7dcc3f68fa!8m2!3d39.0797515!4d16.0875574!16s%2Fg%2F1vntxtw6?entry=ttu&g_ep=EgoyMDI1MTIwNy4wIKXMDSoASAFQAw%3D%3D",
         },
     ],
 };
@@ -41,22 +37,11 @@ const footerLinks = {
             <!-- Brand -->
             <div class="sm:col-span-2 lg:col-span-1">
                 <a href="/" class="flex items-center gap-3 mb-6">
-                    <div
-                        class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center"
-                    >
-                        <span class="text-primary-foreground font-bold text-xl"
-                            >DA</span
-                        >
-                    </div>
-                    <div>
-                        <span
-                            class="font-bold text-lg text-secondary-foreground"
-                            >Delizia Alessandro</span
-                        >
-                        <span class="block text-xs text-secondary-foreground/60"
-                            >S.r.l.</span
-                        >
-                    </div>
+                    <img
+                        src="/images/logo-deliziaalessandro.svg"
+                        alt="Delizia Alessandro S.r.l."
+                        class="h-12 w-auto object-contain bg-white rounded-lg p-1"
+                    />
                 </a>
                 <p
                     class="text-secondary-foreground/70 text-sm leading-relaxed mb-6"

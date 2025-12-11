@@ -40,19 +40,15 @@ const brands = (await getCollection("brands")).sort(
                     <a href={`/brands/${brand.slug}`} class="group block">
                         <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30 bg-background">
                             <CardHeader className="text-center pb-4">
-                                <div class="w-24 h-24 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
-                                    {brand.data.logo ? (
+                                {brand.data.logo && (
+                                    <div class="w-24 h-24 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
                                         <img
                                             src={brand.data.logo}
                                             alt={`Logo ${brand.data.name}`}
                                             class="max-w-full max-h-full object-contain"
                                         />
-                                    ) : (
-                                        <div class="text-2xl font-bold text-primary">
-                                            {brand.data.name.charAt(0)}
-                                        </div>
-                                    )}
-                                </div>
+                                    </div>
+                                )}
                                 <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
                                     {brand.data.name}
                                 </CardTitle>
