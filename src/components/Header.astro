@@ -1,5 +1,25 @@
 ---
 import { Button } from "./ui/button";
+
+interface Link {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  links?: Link[];
+}
+
+const defaultLinks: Link[] = [
+  { href: "/#servizi", label: "Servizi" },
+  { href: "/#showroom", label: "Showroom" },
+  { href: "/#chi-siamo", label: "Chi Siamo" },
+  { href: "/blog", label: "Blog" },
+  { href: "/marchi", label: "Marchi" },
+  { href: "/#contatti", label: "Contatti" },
+];
+
+const { links = defaultLinks } = Astro.props;
 ---
 
 <header
@@ -18,42 +38,16 @@ import { Button } from "./ui/button";
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-8">
-        <a
-          href="/#servizi"
-          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-        >
-          Servizi
-        </a>
-        <a
-          href="/#showroom"
-          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-        >
-          Showroom
-        </a>
-        <a
-          href="/#chi-siamo"
-          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-        >
-          Chi Siamo
-        </a>
-        <a
-          href="/blog"
-          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-        >
-          Blog
-        </a>
-        <a
-          href="/marchi"
-          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-        >
-          Marchi
-        </a>
-        <a
-          href="/#contatti"
-          class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-        >
-          Contatti
-        </a>
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
       </nav>
 
 
@@ -89,36 +83,16 @@ import { Button } from "./ui/button";
   <!-- Mobile Navigation -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-border">
     <nav class="container mx-auto px-4 py-4 flex flex-col gap-4">
-      <a
-        href="/#servizi"
-        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-      >
-        Servizi
-      </a>
-      <a
-        href="/#showroom"
-        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-      >
-        Showroom
-      </a>
-      <a
-        href="/#chi-siamo"
-        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-      >
-        Chi Siamo
-      </a>
-      <a
-        href="/blog"
-        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-      >
-        Blog
-      </a>
-      <a
-        href="/#contatti"
-        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-      >
-        Contatti
-      </a>
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+          >
+            {link.label}
+          </a>
+        ))
+      }
       <a href="/#contatti" class="sm:hidden">
         <Button client:load className="w-full"> Richiedi Preventivo </Button>
       </a>
