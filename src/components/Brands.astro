@@ -7,6 +7,8 @@ import {
     CardHeader,
     CardTitle,
 } from "./ui/card";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 const brands = (await getCollection("brands")).sort(
     (a, b) => a.data.order - b.data.order,
@@ -36,8 +38,8 @@ const brands = (await getCollection("brands")).sort(
         <!-- Brands Grid -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {
-                brands.map((brand) => (
-                    <a href={`/brands/${brand.slug}`} class="group block">
+                brands.slice(0, 6).map((brand) => (
+                    <a href={`/marchi/${brand.slug}`} class="group block">
                         <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30 bg-background">
                             <CardHeader className="text-center pb-4">
                                 {brand.data.logo && (
@@ -81,5 +83,24 @@ const brands = (await getCollection("brands")).sort(
                 ))
             }
         </div>
+
+        {
+            brands.length > 6 && (
+                <div class="mt-16 text-center">
+                    <a
+                        href="/marchi"
+                        class={cn(
+                            buttonVariants({
+                                variant: "outline",
+                                size: "lg",
+                            }),
+                            "px-8 rounded-full border-2",
+                        )}
+                    >
+                        Vedi tutti i marchi
+                    </a>
+                </div>
+            )
+        }
     </div>
 </section>

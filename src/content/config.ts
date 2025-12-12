@@ -21,7 +21,17 @@ const brands = defineCollection({
         website: z.string().url(),
         images: z.array(z.string()).default([]),
         order: z.number().default(0),
+        categories: z.array(z.string()).default([]),
     }),
 });
 
-export const collections = { blog, brands };
+const categories = defineCollection({
+    type: 'content',
+    schema: z.object({
+        name: z.string(),
+        description: z.string(),
+        images: z.array(z.string()).default([]),
+    }),
+});
+
+export const collections = { blog, brands, categories };

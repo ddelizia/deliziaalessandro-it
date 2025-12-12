@@ -1,0 +1,171 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { Button, buttonVariants } from "../../components/ui/button";
+import CTASection from "../../components/CTASection.astro";
+import { cn } from "@/lib/utils";
+
+export async function getStaticPaths() {
+    const brands = await getCollection("brands");
+    return brands.map((brand) => ({
+        params: { slug: brand.slug },
+        props: { brand },
+    }));
+}
+
+const { brand } = Astro.props;
+const { Content } = await brand.render();
+
+// For brand pages without TOC headings, we might want to manually create some or just skip the TOC
+// brands usually have shorter content, but we'll keep the layout structure for consistency.
+---
+
+<Layout
+    title={`${brand.data.name} - Delizia Alessandro S.r.l.`}
+    description={brand.data.description}
+>
+    <Header />
+    <main class="min-h-screen bg-background">
+        <!-- Hero Section -->
+        <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-20 bg-muted/20">
+            <div
+                class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+            >
+            </div>
+            <div class="container relative mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <a
+                        href="/marchi"
+                        class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-8 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full border border-border/50"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                        Tutti i marchi
+                    </a>
+
+                    {
+                        brand.data.logo && (
+                            <div class="w-32 h-32 mx-auto mb-8 rounded-2xl bg-white flex items-center justify-center p-6 border border-border/50 shadow-lg">
+                                <img
+                                    src={brand.data.logo}
+                                    alt={`Logo ${brand.data.name}`}
+                                    class="max-w-full max-h-full object-contain"
+                                />
+                            </div>
+                        )
+                    }
+
+                    <h1
+                        class="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6"
+                    >
+                        {brand.data.name}
+                    </h1>
+                    <p
+                        class="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8"
+                    >
+                        {brand.data.description}
+                    </p>
+
+                    <a
+                        href={brand.data.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={cn(
+                            buttonVariants({ variant: "outline" }),
+                            "gap-2 border-2",
+                        )}
+                    >
+                        Visita il sito ufficiale
+                        <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            ></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 lg:py-20">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
+                    <!-- Content -->
+                    <article class="flex-1 min-w-0">
+                        <div
+                            class="prose prose-lg prose-slate dark:prose-invert max-w-none
+                            prose-headings:scroll-mt-32
+                            prose-h2:text-3xl prose-h2:font-bold prose-h2:tracking-tight prose-h2:mt-12 prose-h2:mb-6
+                            prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-8 prose-h3:mb-4
+                            prose-p:leading-relaxed prose-p:text-muted-foreground
+                            prose-li:text-muted-foreground
+                            prose-strong:text-foreground prose-strong:font-semibold
+                            prose-img:rounded-xl prose-img:shadow-lg"
+                        >
+                            <Content />
+                        </div>
+                    </article>
+
+                    <!-- Sidebar / Info (optional for Brands if we don't have enough content for TOC) -->
+                    <!-- keeping it simple for brands often centered content is better if text is short -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Images Gallery -->
+        {
+            brand.data.images && brand.data.images.length > 0 && (
+                <section class="py-16 lg:py-24 bg-muted/30">
+                    <div class="container mx-auto px-4">
+                        <h2 class="text-3xl font-bold text-foreground mb-12 text-center">
+                            Galleria Fotografica
+                        </h2>
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                            {brand.data.images.map(
+                                (image: string, index: number) => (
+                                    <div class="group aspect-video rounded-2xl overflow-hidden bg-background border border-border/50 shadow-sm hover:shadow-lg transition-all duration-300">
+                                        <div class="w-full h-full overflow-hidden">
+                                            <img
+                                                src={image}
+                                                alt={`${brand.data.name} - Immagine ${index + 1}`}
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                        </div>
+                                    </div>
+                                ),
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )
+        }
+
+        <!-- CTA Section -->
+        <CTASection
+            title={`Interessato a ${brand.data.name}?`}
+            description="Vieni a trovarci nel nostro showroom per scoprire l'intera gamma e vedere i campioni dal vivo."
+            primaryText="Richiedi informazioni"
+            secondaryText="Dove siamo"
+        />
+    </main>
+    <Footer />
+</Layout>

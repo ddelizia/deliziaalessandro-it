@@ -1,0 +1,142 @@
+---
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "./ui/card";
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
+import { getCollection } from "astro:content";
+
+const categories = (await getCollection("categories")).sort((a, b) =>
+    a.data.name.localeCompare(b.data.name),
+);
+
+---
+
+<section id="servizi" class="py-20 lg:py-32 bg-background">
+    <div class="container mx-auto px-4">
+        <!-- Products Section -->
+        <div class="text-center mb-16">
+            <span
+                class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+            >
+                I Nostri Prodotti
+            </span>
+            <h2
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+            >
+                Materiali di qualità per ogni tuo progetto
+            </h2>
+            <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Una vasta selezione di prodotti delle migliori marche per
+                costruire, ristrutturare e arredare.
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {
+                categories.slice(0, 6).map((category) => (
+                    <a
+                        href={`/categorie/${category.slug}`}
+                        class="group block h-full"
+                    >
+                        <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/30 bg-card overflow-hidden relative">
+                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="100"
+                                    height="100"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="text-primary transform rotate-12"
+                                >
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="3"
+                                        y="3"
+                                        rx="1"
+                                    />
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="14"
+                                        y="3"
+                                        rx="1"
+                                    />
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="14"
+                                        y="14"
+                                        rx="1"
+                                    />
+                                    <rect
+                                        width="7"
+                                        height="7"
+                                        x="3"
+                                        y="14"
+                                        rx="1"
+                                    />
+                                </svg>
+                            </div>
+                            <CardHeader className="pt-8">
+                                <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors">
+                                    {category.data.name}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <CardDescription className="text-muted-foreground line-clamp-3 text-base mb-6">
+                                    {category.data.description}
+                                </CardDescription>
+                                <div class="flex items-center text-primary font-medium group-hover:translate-x-2 transition-transform">
+                                    Esplora prodotti
+                                    <svg
+                                        class="w-4 h-4 ml-2"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                                        />
+                                    </svg>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </a>
+                ))
+            }
+        </div>
+
+        {
+            categories.length > 6 && (
+                <div class="text-center mb-24">
+                    <a
+                        href="/categorie"
+                        class={cn(
+                            buttonVariants({
+                                variant: "outline",
+                                size: "lg",
+                            }),
+                            "px-8 rounded-full border-2",
+                        )}
+                    >
+                        Vedi tutte le categorie
+                    </a>
+                </div>
+            )
+        }
+
+    </div>
+</section>

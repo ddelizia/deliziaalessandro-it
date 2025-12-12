@@ -1,0 +1,91 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+
+const brands = (await getCollection("brands")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const title = "I Nostri Marchi - Delizia Alessandro S.r.l.";
+const description =
+  "Scopri tutti i marchi partner di Delizia Alessandro S.r.l. Qualità e design per l'edilizia e l'arredo bagno. Visualizza il catalogo completo.";
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="min-h-screen bg-background pt-32 pb-20">
+    <div class="container mx-auto px-4">
+      <!-- Page Header -->
+      <div class="text-center mb-16">
+        <h1
+          class="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6"
+        >
+          I Nostri Marchi
+        </h1>
+        <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+          Collaboriamo con le migliori aziende italiane ed internazionali per
+          garantire l'eccellenza nei materiali e nelle finiture per la tua casa.
+        </p>
+      </div>
+
+      <!-- Brands Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {
+          brands.map((brand) => (
+            <a href={`/marchi/${brand.slug}`} class="group block h-full">
+              <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/30 bg-card">
+                <CardHeader className="text-center pb-4 pt-8">
+                  {brand.data.logo && (
+                    <div class="w-32 h-24 mx-auto mb-6 rounded-lg bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
+                      <img
+                        src={brand.data.logo}
+                        alt={`Logo ${brand.data.name}`}
+                        class="max-w-full max-h-full object-contain p-2"
+                      />
+                    </div>
+                  )}
+                  <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
+                    {brand.data.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-muted-foreground text-center line-clamp-2 mb-4">
+                    {brand.data.description}
+                  </CardDescription>
+                  <div class="text-center">
+                    <span class="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
+                      Vedi dettagli
+                      <svg
+                        class="w-4 h-4 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

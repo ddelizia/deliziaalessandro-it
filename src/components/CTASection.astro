@@ -1,0 +1,75 @@
+---
+import { buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
+
+interface Props {
+  title: string;
+  description: string;
+  primaryText?: string;
+  primaryLink?: string;
+  secondaryText?: string;
+  secondaryLink?: string;
+}
+
+const {
+  title,
+  description,
+  primaryText = "Richiedi informazioni",
+  primaryLink = "/#contatti",
+  secondaryText = "Dove siamo",
+  secondaryLink = "/#showroom",
+} = Astro.props;
+---
+
+<section class="py-16 lg:py-24 border-t border-border/50">
+  <div class="container mx-auto px-4">
+    <div
+      class="bg-muted/30 rounded-3xl p-8 md:p-12 text-center border border-border/50 max-w-4xl mx-auto backdrop-blur-sm relative overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none"
+      >
+      </div>
+      <h2 class="text-3xl font-bold text-foreground mb-6 relative">
+        {title}
+      </h2>
+      <p
+        class="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed relative"
+      >
+        {description}
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 relative z-10">
+        <a
+          href={primaryLink}
+          class={cn(
+            buttonVariants({ size: "lg" }),
+            "group gap-2 text-base font-semibold h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 bg-gradient-to-r from-primary to-primary/90 hover:from-primary hover:to-primary",
+          )}
+        >
+          {primaryText}
+          <svg
+            class="w-5 h-5 ml-1 transition-transform duration-300 group-hover:translate-x-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+        <a
+          href={secondaryLink}
+          class={cn(
+            buttonVariants({ variant: "outline", size: "lg" }),
+            "text-base font-semibold h-12 px-8 rounded-full border-2 hover:bg-muted/50 transition-all duration-300",
+          )}
+        >
+          {secondaryText}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,11 +1,11 @@
 import { getBrands, type BrandRowData } from "../data/csv";
 import slugify from "slugify";
 import { JsonDB, Config } from 'node-json-db';
-import { brandInvestigationAgent } from "../ai/brand-processing";
+import { brandInvestigationAgent } from "../ai/brand.ai";
 import fs from "fs";
 import path from "path";
 
-const db = new JsonDB(new Config("data/storage", true, false, '/'));
+const db = new JsonDB(new Config("data/brands/storage", true, false, '/'));
 
 type BrandData = {
   slug: string;
@@ -86,10 +86,10 @@ ${data.description}
 }
 
 
-const brands = await getBrands();
-for (const brand of brands) {
-  console.log(`Processing brand ${brand.Name}`);
-  await generateMarkdown(brand);
-}
+// const brands = await getBrands();
+// for (const brand of brands) {
+//   console.log(`Processing brand ${brand.Name}`);
+//   await generateMarkdown(brand);
+// }
 
-// processBrands().then(() => console.log("Done"));
+processBrands().then(() => console.log("Done"));
