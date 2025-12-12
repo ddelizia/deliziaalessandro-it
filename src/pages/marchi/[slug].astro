@@ -20,6 +20,11 @@ const { Content } = await brand.render();
 
 // For brand pages without TOC headings, we might want to manually create some or just skip the TOC
 // brands usually have shorter content, but we'll keep the layout structure for consistency.
+// Map category names to slugs
+const allCategories = await getCollection("categories");
+const categorySlugMap = new Map(
+    allCategories.map((c) => [c.data.name, c.slug]),
+);
 ---
 
 <Layout
@@ -72,6 +77,31 @@ const { Content } = await brand.render();
                     >
                         {brand.data.name}
                     </h1>
+
+                    {/* Category Badges */}
+                    {
+                        brand.data.categories &&
+                            brand.data.categories.length > 0 && (
+                                <div class="flex flex-wrap justify-center gap-2 mb-6">
+                                    {brand.data.categories.map(
+                                        (catName: string) => {
+                                            const slug =
+                                                categorySlugMap.get(catName);
+                                            if (!slug) return null;
+                                            return (
+                                                <a
+                                                    href={`/categorie/${slug}`}
+                                                    class="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors"
+                                                >
+                                                    {catName}
+                                                </a>
+                                            );
+                                        },
+                                    )}
+                                </div>
+                            )
+                    }
+
                     <p
                         class="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8"
                     >

@@ -3,17 +3,18 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
+import BrandCard from "../../components/BrandCard.astro";
+import { buttonVariants } from "../../components/ui/button";
+import { cn } from "@/lib/utils";
 
 const brands = (await getCollection("brands")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+
+// Extract unique categories
+const allCategories = [
+  ...new Set(brands.flatMap((brand) => brand.data.categories || [])),
+].sort();
 
 const title = "I Nostri Marchi - Delizia Alessandro S.r.l.";
 const description =
@@ -25,7 +26,7 @@ const description =
   <main class="min-h-screen bg-background pt-32 pb-20">
     <div class="container mx-auto px-4">
       <!-- Page Header -->
-      <div class="text-center mb-16">
+      <div class="text-center mb-12">
         <h1
           class="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6"
         >
@@ -37,55 +38,137 @@ const description =
         </p>
       </div>
 
-      <!-- Brands Grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Filter Section -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <button
+          data-category="all"
+          class={cn(
+            buttonVariants({ variant: "default" }),
+            "filter-btn rounded-full px-6",
+          )}
+        >
+          Tutti
+        </button>
         {
-          brands.map((brand) => (
-            <a href={`/marchi/${brand.slug}`} class="group block h-full">
-              <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/30 bg-card">
-                <CardHeader className="text-center pb-4 pt-8">
-                  {brand.data.logo && (
-                    <div class="w-32 h-24 mx-auto mb-6 rounded-lg bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
-                      <img
-                        src={brand.data.logo}
-                        alt={`Logo ${brand.data.name}`}
-                        class="max-w-full max-h-full object-contain p-2"
-                      />
-                    </div>
-                  )}
-                  <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                    {brand.data.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground text-center line-clamp-2 mb-4">
-                    {brand.data.description}
-                  </CardDescription>
-                  <div class="text-center">
-                    <span class="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
-                      Vedi dettagli
-                      <svg
-                        class="w-4 h-4 transition-transform group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            </a>
+          allCategories.map((category) => (
+            <button
+              data-category={category}
+              class={cn(
+                buttonVariants({ variant: "outline" }),
+                "filter-btn rounded-full px-6",
+              )}
+            >
+              {category}
+            </button>
           ))
         }
+      </div>
+
+      <!-- Brands Grid -->
+      <div
+        id="brands-grid"
+        class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        {brands.map((brand) => <BrandCard brand={brand} />)}
+      </div>
+
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-12">
+        <p class="text-xl text-muted-foreground">
+          Nessun marchio trovato per questa categoria.
+        </p>
       </div>
     </div>
   </main>
   <Footer />
 </Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    initFilter();
+  });
+
+  // Also run on initial load if view transitions are not used or for first render
+  initFilter();
+
+  function initFilter() {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const brandItems = document.querySelectorAll(
+      ".brand-item",
+    ) as NodeListOf<HTMLElement>;
+    const noResults = document.getElementById("no-results");
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Remove active class from all buttons
+        filterBtns.forEach((b) => {
+          b.classList.remove(
+            "bg-primary",
+            "text-primary-foreground",
+            "hover:bg-primary/90",
+          );
+          b.classList.add(
+            "bg-background",
+            //"text-accent-foreground", // Removed problematic class
+            "text-foreground", // Added reset to default text color
+            "border",
+            "border-input",
+            "hover:bg-accent",
+            "hover:text-accent-foreground",
+          );
+        });
+
+        // Add active class to clicked button
+        btn.classList.remove(
+          "bg-background",
+          "text-accent-foreground",
+          "border",
+          "border-input",
+          "hover:bg-accent",
+          "hover:text-accent-foreground",
+        );
+        btn.classList.add(
+          "bg-primary",
+          "text-primary-foreground",
+          "hover:bg-primary/90",
+        );
+
+        const selectedCategory = btn.getAttribute("data-category");
+        let visibleCount = 0;
+
+        brandItems.forEach((item) => {
+          const itemCategories =
+            item.getAttribute("data-categories")?.split(",") || [];
+
+          if (
+            selectedCategory === "all" ||
+            itemCategories.includes(selectedCategory!)
+          ) {
+            item.classList.remove("hidden");
+            // Add a small animation/fade-in class if desired
+            item.animate(
+              [
+                { opacity: 0, transform: "scale(0.95)" },
+                { opacity: 1, transform: "scale(1)" },
+              ],
+              {
+                duration: 300,
+                easing: "ease-out",
+              },
+            );
+            visibleCount++;
+          } else {
+            item.classList.add("hidden");
+          }
+        });
+
+        // Show/Hide "No Results" message
+        if (visibleCount === 0 && noResults) {
+          noResults.classList.remove("hidden");
+        } else if (noResults) {
+          noResults.classList.add("hidden");
+        }
+      });
+    });
+  }
+</script>

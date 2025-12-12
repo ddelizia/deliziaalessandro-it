@@ -6,47 +6,85 @@ import {
     CardHeader,
     CardTitle,
 } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { cn } from "@/lib/utils";
+import {
+    Monitor,
+    UserCheck,
+    FileText,
+    Truck,
+    HeartHandshake,
+    CreditCard,
+    CircleParking,
+    Layers,
+    ArrowRight,
+} from "lucide-react";
 
-const services = [
+// Bento Grid Items Definition
+const bentoItems = [
     {
-        title: "Materiale Edile",
+        title: "Progettazione 3D & Rendering",
         description:
-            "Tutto per la costruzione: cemento, laterizi, malte, legname, ferramenta e utensili professionali.",
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>`,
-        features: [
-            "Cemento e calcestruzzo",
-            "Laterizi e mattoni",
-            "Malte e intonaci",
-            "Legname da costruzione",
-        ],
-        badge: "Più richiesto",
+            "Visualizza il tuo nuovo bagno o pavimento in anteprima. Offriamo un servizio di progettazione d'interni avanzato per aiutarti a scegliere i migliori pavimenti, rivestimenti e arredo bagno.",
+        icon: Monitor,
+        className: "md:col-span-2 md:row-span-1", // Large Hero Tile
+        keywords: ["Pavimenti", "Rivestimenti", "Arredo Bagno"],
+        // gradient: "from-primary/10 to-primary/5",
     },
     {
-        title: "Arredobagno",
+        title: "Consulenza Gratuita",
         description:
-            "Showroom dedicato con le migliori marche: sanitari, box doccia, vasche, mobili e accessori.",
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>`,
-        features: [
-            "Sanitari e rubinetteria",
-            "Box doccia e vasche",
-            "Mobili bagno",
-            "Accessori design",
-        ],
-        badge: null,
+            "I nostri esperti ti guidano nella scelta di sistemi di riscaldamento, condizionamento e solare termico efficienti.",
+        icon: UserCheck,
+        className: "md:col-span-1 md:row-span-1",
+        keywords: ["Riscaldamento", "Condizionamento", "Solare Termico"],
     },
     {
-        title: "Finiture",
+        title: "Preventivi Gratuiti",
         description:
-            "Ceramiche, parquet, rivestimenti e centro tintometrico per colori personalizzati.",
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>`,
-        features: [
-            "Ceramiche e gres",
-            "Parquet e laminati",
-            "Pitture e vernici",
-            "Centro tintometrico",
+            "Richiedi un preventivo dettagliato per infissi, porte interne, portoni blindati e scale su misura.",
+        icon: FileText,
+        className: "md:col-span-1 md:row-span-1",
+        keywords: ["Infissi", "Porte", "Scale"],
+    },
+    {
+        title: "Vasto Assortimento",
+        description:
+            "Tutto ciò che serve per la tua casa: colori, vernici, decorazioni, camini, rubinetteria, vasche e docce.",
+        icon: Layers,
+        className: "md:col-span-1 md:row-span-2", // Tall Tile
+        keywords: [
+            "Colori",
+            "Vernici",
+            "Decorazioni",
+            "Camini",
+            "Rubinetteria",
         ],
-        badge: "Nuovo",
+    },
+    {
+        title: "Assistenza Post Vendita",
+        description: "Supporto continuativo e garanzia su tutti i prodotti.",
+        icon: HeartHandshake,
+        className: "md:col-span-1 md:row-span-1",
+    },
+    {
+        title: "Trasporto",
+        description:
+            "Consegna diretta in cantiere con mezzi propri di materiali tecnici, collanti e cementi.",
+        icon: Truck,
+        className: "md:col-span-2 md:row-span-1", // Wide Tile
+        keywords: ["Materiali tecnici", "Collanti", "Cementi"],
+    },
+    {
+        title: "Pagamenti Personalizzati",
+        description: "Soluzioni finanziarie su misura per le tue esigenze.",
+        icon: CreditCard,
+        className: "md:col-span-1 md:row-span-1",
+    },
+    {
+        title: "Ampi Parcheggi",
+        description: "Comodo parcheggio riservato presso il nostro showroom.",
+        icon: CircleParking,
+        className: "md:col-span-1 md:row-span-1",
     },
 ];
 ---
@@ -63,125 +101,58 @@ const services = [
             <h2
                 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
             >
-                Tutto per il tuo progetto
+                Soluzioni Complete per l'Edilizia
             </h2>
             <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Dalla fondazione alla finitura, siamo il partner ideale per
-                professionisti e privati. Qualità, assortimento e consulenza
-                specializzata.
+                Offriamo consulenza, progettazione e materiali di qualità per
+                realizzare i tuoi progetti, dalla A alla Z.
             </p>
         </div>
 
-        <!-- Services Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Bento Grid -->
+        <div
+            class="grid grid-cols-1 md:grid-cols-4 auto-rows-[minmax(180px,auto)] gap-4"
+        >
             {
-                services.map((service) => (
-                    <div class="group">
-                        <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30">
-                            <CardHeader>
-                                <div class="flex items-start justify-between mb-4">
-                                    <div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                        <Fragment set:html={service.icon} />
-                                    </div>
-                                    {service.badge && (
-                                        <Badge className="bg-accent text-accent-foreground">
-                                            {service.badge}
-                                        </Badge>
-                                    )}
-                                </div>
-                                <CardTitle className="text-xl font-bold">
-                                    {service.title}
-                                </CardTitle>
-                                <CardDescription className="text-muted-foreground leading-relaxed">
-                                    {service.description}
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <ul class="space-y-2">
-                                    {service.features.map((feature) => (
-                                        <li class="flex items-center gap-2 text-sm text-muted-foreground">
-                                            <svg
-                                                class="w-4 h-4 text-primary flex-shrink-0"
-                                                fill="currentColor"
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path
-                                                    fill-rule="evenodd"
-                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd"
-                                                />
-                                            </svg>
-                                            {feature}
-                                        </li>
+                bentoItems.map((item) => (
+                    <Card
+                        className={cn(
+                            "group relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30 flex flex-col",
+                            item.className,
+                            item.gradient ? `bg-gradient-to-br ${item.gradient}` : "bg-card"
+                        )}
+                    >
+                        <CardHeader className="relative z-10 pb-2">
+                             <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                                <item.icon className="w-6 h-6" />
+                            </div>
+                            <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
+                                {item.title}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="relative z-10 flex-grow">
+                            <CardDescription className="text-base text-muted-foreground leading-relaxed mb-4">
+                                {item.description}
+                            </CardDescription>
+                            
+                            {item.keywords && (
+                                <div class="flex flex-wrap gap-2 mt-auto pt-4">
+                                    {item.keywords.map((kw) => (
+                                        <span class="inline-flex items-center text-xs font-medium text-primary/80 bg-primary/5 px-2 py-1 rounded-md">
+                                            {kw}
+                                        </span>
                                     ))}
-                                </ul>
-                            </CardContent>
-                        </Card>
-                    </div>
+                                </div>
+                            )}
+
+                             <!-- Decorative background icon equivalent -->
+                            <div class="absolute -right-4 -bottom-4 opacity-0 group-hover:opacity-5 transition-opacity duration-300 scale-150 text-foreground pointer-events-none">
+                                <item.icon className="w-40 h-40" />
+                            </div>
+                        </CardContent>
+                    </Card>
                 ))
             }
-        </div>
-
-        <!-- Additional services -->
-        <div class="mt-16 grid sm:grid-cols-2 gap-6">
-            <div
-                class="flex items-center gap-4 p-6 rounded-xl bg-muted/50 border border-border/50"
-            >
-                <div
-                    class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary flex-shrink-0"
-                >
-                    <svg
-                        class="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-                        ></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-foreground">
-                        Consegna in Cantiere
-                    </h3>
-                    <p class="text-sm text-muted-foreground">
-                        Trasporto diretto dei materiali dove ti servono
-                    </p>
-                </div>
-            </div>
-            <div
-                class="flex items-center gap-4 p-6 rounded-xl bg-muted/50 border border-border/50"
-            >
-                <div
-                    class="w-12 h-12 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary flex-shrink-0"
-                >
-                    <svg
-                        class="w-6 h-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-                        ></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-foreground">
-                        Noleggio Attrezzature
-                    </h3>
-                    <p class="text-sm text-muted-foreground">
-                        Macchinari e attrezzature edili a noleggio
-                    </p>
-                </div>
-            </div>
         </div>
     </div>
 </section>

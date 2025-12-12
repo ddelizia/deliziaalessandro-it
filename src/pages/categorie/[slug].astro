@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { Button, buttonVariants } from "../../components/ui/button";
+import BrandCard from "../../components/BrandCard.astro";
 import CTASection from "../../components/CTASection.astro";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +18,11 @@ export async function getStaticPaths() {
 
 const { category } = Astro.props;
 const { Content, headings } = await category.render();
+
+const allBrands = await getCollection("brands");
+const relatedBrands = allBrands.filter((brand) =>
+    brand.data.categories?.includes(category.data.name),
+);
 ---
 
 <Layout
@@ -127,6 +133,22 @@ const { Content, headings } = await category.render();
                         >
                             <Content />
                         </div>
+
+                        <!-- Brands Grid for this Category -->
+                        {
+                            relatedBrands.length > 0 && (
+                                <div class="mt-20 pt-12 border-t border-border/50">
+                                    <h2 class="text-2xl font-bold mb-8">
+                                        Marchi Trattati
+                                    </h2>
+                                    <div class="grid sm:grid-cols-2 gap-6">
+                                        {relatedBrands.map((brand) => (
+                                            <BrandCard brand={brand} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        }
                     </article>
                 </div>
             </div>
