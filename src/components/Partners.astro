@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+---
+
+<section class="py-16 bg-muted/30">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-foreground mb-4">I Nostri Partner</h2>
+      <p class="text-muted-foreground max-w-2xl mx-auto">
+        Siamo orgogliosi di far parte dei più importanti consorzi e associazioni
+        del settore.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <!-- MADE -->
+      <div
+        class="bg-background rounded-xl p-8 shadow-sm border border-border/50 flex flex-col items-center text-center transition-all hover:shadow-lg"
+      >
+        <div class="h-24 flex items-center justify-center mb-6 w-full">
+          <Image
+            src="/images/partners/made.png"
+            alt="Logo Gruppo MADE"
+            width={180}
+            height={60}
+            class="max-h-full max-w-[180px] object-contain"
+          />
+        </div>
+        <p class="text-muted-foreground text-sm leading-relaxed">
+          MADE è il gruppo per l’edilizia italiana, punto di riferimento unico
+          per tutto quello che stai cercando per costruire casa.
+        </p>  
+      </div>
+
+      <!-- DELTA -->
+      <div
+        class="bg-background rounded-xl p-8 shadow-sm border border-border/50 flex flex-col items-center text-center transition-all hover:shadow-lg"
+      >
+        <div class="h-24 flex items-center justify-center mb-6 w-full">
+          <Image
+            src="/images/partners/delta.png"
+            alt="Logo Delta S.p.A."
+            width={180}
+            height={60}
+            class="max-h-full max-w-[180px] object-contain"
+          />
+        </div>
+        <p class="text-muted-foreground text-sm leading-relaxed">
+          Nel 1989, la Ditta, insieme ad altri soci Nazionali, Costituisce il
+          DELTA S.P.A. Oggi il CONSORZIO, è il PRIMO GRUPPO in Italia operante
+          nel settore idro-termo-sanitario. L'azienda DELIZIA ALESSANDRO srl è
+          orgogliosa di essere SOCIO FONDATORE di questo Gruppo.
+        </p>
+      </div>
+
+      <!-- ANGAISA -->
+      <div
+        class="bg-background rounded-xl p-8 shadow-sm border border-border/50 flex flex-col items-center text-center transition-all hover:shadow-lg"
+      >
+        <div class="h-24 flex items-center justify-center mb-6 w-full">
+          <Image
+            src="/images/partners/angaisa.png"
+            alt="Logo Angaisa"
+            width={180}
+            height={60}
+            class="max-h-full max-w-[180px] object-contain"
+          />
+        </div>
+        <p class="text-muted-foreground text-sm leading-relaxed">
+          Nel 1985 viene chiamata a far parte dell'Angaisa, associazione
+          nazionale Commercianti Articoli Idrosanitari, Climatizzazione,
+          Pavimenti, Rivestimenti ed Arredo-bagno.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,5 +1,6 @@
 ---
 import { Separator } from "./ui/separator";
+import { Image } from 'astro:assets';
 
 const currentYear = new Date().getFullYear();
 
@@ -18,7 +19,7 @@ const footerLinks = {
         { label: "Contatti", href: "/#contatti" },
     ],
     contatti: [
-        { label: "+39 0982 421234", href: "tel:+390982421234" },
+        { label: "+39 0982 48400", href: "tel:+39098248400" },
         {
             label: "info@deliziaalessandro.it",
             href: "mailto:info@deliziaalessandro.it",
@@ -37,9 +38,11 @@ const footerLinks = {
             <!-- Brand -->
             <div class="sm:col-span-2 lg:col-span-1">
                 <a href="/" class="flex items-center gap-3 mb-6">
-                    <img
+                    <Image
                         src="/images/logo-deliziaalessandro.svg"
                         alt="Delizia Alessandro S.r.l."
+                        width={128}
+                        height={128}
                         class="h-12 w-auto object-contain bg-white rounded-lg p-1"
                     />
                 </a>

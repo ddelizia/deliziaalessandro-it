@@ -1,5 +1,6 @@
 ---
 import { Button } from "./ui/button";
+import { Image } from 'astro:assets';
 
 interface Link {
   href: string;
@@ -29,9 +30,11 @@ const { links = defaultLinks } = Astro.props;
     <div class="flex items-center justify-between h-16 lg:h-20">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-3">
-        <img
+        <Image
           src="/images/logo-deliziaalessandro.svg"
           alt="Delizia Alessandro S.r.l."
+          width={128}
+          height={128}
           class="h-10 lg:h-12 w-auto object-contain"
         />
       </a>

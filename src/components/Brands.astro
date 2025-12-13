@@ -9,6 +9,7 @@ import {
 } from "./ui/card";
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { Image } from 'astro:assets';
 
 const brands = (await getCollection("brands")).sort(
     (a, b) => a.data.order - b.data.order,
@@ -44,9 +45,11 @@ const brands = (await getCollection("brands")).sort(
                             <CardHeader className="text-center pb-4">
                                 {brand.data.logo && (
                                     <div class="w-24 h-24 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
-                                        <img
+                                        <Image
                                             src={brand.data.logo}
                                             alt={`Logo ${brand.data.name}`}
+                                            width={128}
+                                            height={128}
                                             class="max-w-full max-h-full object-contain"
                                         />
                                     </div>

@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import type { CollectionEntry } from "astro:content";
+import { Image } from 'astro:assets';
 
 interface Props {
   brand: CollectionEntry<"brands">;
@@ -31,9 +32,11 @@ const { brand, class: className } = Astro.props;
       {
         brand.data.logo && (
           <div class="w-32 h-24 mx-auto mb-6 rounded-lg bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
-            <img
+            <Image
               src={brand.data.logo}
               alt={`Logo ${brand.data.name}`}
+              width={128}
+              height={128}
               class="max-w-full max-h-full object-contain p-2"
             />
           </div>
