@@ -6,20 +6,33 @@ import { Badge } from "../../components/ui/badge";
 import { Separator } from "../../components/ui/separator";
 import { buttonVariants } from "../../components/ui/button";
 import { getCollection, type CollectionEntry } from "astro:content";
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
-    return posts.map((post) => ({
+    // Sort by Date descending
+    posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+    return posts.map((post, index) => ({
         params: { slug: post.slug },
-        props: post,
+        props: {
+            post,
+            // Previous in list is newer (index - 1), Next in list is older (index + 1)
+            // But visually "Previous" usually means "Older" post and "Next" means "Newer" post?
+            // Let's stick to list order: Previous item in array, Next item in array.
+            // If sorted descending: index-1 is newer, index+1 is older.
+            // Let's swap labels in UI or swap logic here.
+            // Logic: prevPost = newer, nextPost = older
+            nextPost: index > 0 ? posts[index - 1] : null,
+            prevPost: index < posts.length - 1 ? posts[index + 1] : null,
+        },
     }));
 }
 
-type Props = CollectionEntry<"blog">;
+// type Props = CollectionEntry<"blog">;
 
-const post = Astro.props;
+const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await post.render();
 
 const formatDate = (date: Date) => {
@@ -190,14 +203,88 @@ const relatedPosts = allPosts
                         )
                     }
 
-                    <!-- Back to Blog -->
-                    <div class="mt-12 text-center">
-                        <a
-                            href="/blog"
-                            class="text-primary font-medium hover:underline"
+                    <!-- Back to Blog and Navigation -->
+                    <div class="mt-12 pt-8 border-t border-border/50">
+                        <div
+                            class="flex flex-col sm:flex-row justify-between items-center gap-4"
                         >
-                            ← Torna al Blog
-                        </a>
+                            {
+                                prevPost ? (
+                                    <a
+                                        href={`/blog/${prevPost.slug}`}
+                                        class="group flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
+                                    >
+                                        <div class="p-2 rounded-full border border-border/50 bg-background group-hover:border-primary/50 transition-colors">
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M15 19l-7-7 7-7"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <div class="text-left">
+                                            <span class="block text-xs text-muted-foreground/70">
+                                                Precedente
+                                            </span>
+                                            <span class="block text-foreground group-hover:text-primary transition-colors line-clamp-1 max-w-[150px] sm:max-w-[200px]">
+                                                {prevPost.data.title}
+                                            </span>
+                                        </div>
+                                    </a>
+                                ) : (
+                                    <div />
+                                )
+                            }
+
+                            <a
+                                href="/blog"
+                                class="text-primary font-medium hover:underline text-sm"
+                            >
+                                Torna al Blog
+                            </a>
+
+                            {
+                                nextPost ? (
+                                    <a
+                                        href={`/blog/${nextPost.slug}`}
+                                        class="group flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm font-medium text-right"
+                                    >
+                                        <div class="text-right">
+                                            <span class="block text-xs text-muted-foreground/70">
+                                                Successivo
+                                            </span>
+                                            <span class="block text-foreground group-hover:text-primary transition-colors line-clamp-1 max-w-[150px] sm:max-w-[200px]">
+                                                {nextPost.data.title}
+                                            </span>
+                                        </div>
+                                        <div class="p-2 rounded-full border border-border/50 bg-background group-hover:border-primary/50 transition-colors">
+                                            <svg
+                                                class="w-4 h-4"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M9 5l7 7-7 7"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                ) : (
+                                    <div />
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
 

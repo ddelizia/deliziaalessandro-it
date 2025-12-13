@@ -10,13 +10,20 @@ import { cn } from "@/lib/utils";
 
 export async function getStaticPaths() {
     const categories = await getCollection("categories");
-    return categories.map((category) => ({
+    categories.sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+    return categories.map((category, index) => ({
         params: { slug: category.slug },
-        props: { category },
+        props: {
+            category,
+            prevCategory: index > 0 ? categories[index - 1] : null,
+            nextCategory:
+                index < categories.length - 1 ? categories[index + 1] : null,
+        },
     }));
 }
 
-const { category } = Astro.props;
+const { category, prevCategory, nextCategory } = Astro.props;
 const { Content, headings } = await category.render();
 
 const allBrands = await getCollection("brands");
@@ -161,6 +168,104 @@ const relatedBrands = allBrands.filter((brand) =>
             primaryText="Richiedi preventivo"
             secondaryText="Dove siamo"
         />
+
+        <!-- Previous/Next Category Navigation -->
+        <section class="py-8 border-t border-border/50 bg-muted/20">
+            <div class="container mx-auto px-4">
+                <div
+                    class="flex flex-col sm:flex-row justify-between items-center gap-4 max-w-6xl mx-auto"
+                >
+                    {
+                        prevCategory ? (
+                            <a
+                                href={`/categorie/${prevCategory.slug}`}
+                                class="group flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
+                            >
+                                <div class="p-2 rounded-full border border-border/50 bg-background group-hover:border-primary/50 transition-colors">
+                                    <svg
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M15 19l-7-7 7-7"
+                                        />
+                                    </svg>
+                                </div>
+                                <div class="text-left">
+                                    <span class="block text-xs text-muted-foreground/70">
+                                        Precedente
+                                    </span>
+                                    <span class="block text-foreground group-hover:text-primary transition-colors">
+                                        {prevCategory.data.name}
+                                    </span>
+                                </div>
+                            </a>
+                        ) : (
+                            <div />
+                        )
+                    }
+
+                    <a
+                        href="/categorie"
+                        class="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        Tutte le categorie
+                    </a>
+
+                    {
+                        nextCategory ? (
+                            <a
+                                href={`/categorie/${nextCategory.slug}`}
+                                class="group flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm font-medium text-right"
+                            >
+                                <div class="text-right">
+                                    <span class="block text-xs text-muted-foreground/70">
+                                        Successivo
+                                    </span>
+                                    <span class="block text-foreground group-hover:text-primary transition-colors">
+                                        {nextCategory.data.name}
+                                    </span>
+                                </div>
+                                <div class="p-2 rounded-full border border-border/50 bg-background group-hover:border-primary/50 transition-colors">
+                                    <svg
+                                        class="w-4 h-4"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M9 5l7 7-7 7"
+                                        />
+                                    </svg>
+                                </div>
+                            </a>
+                        ) : (
+                            <div />
+                        )
+                    }
+                </div>
+            </div>
+        </section>
     </main>
     <Footer />
 </Layout>
