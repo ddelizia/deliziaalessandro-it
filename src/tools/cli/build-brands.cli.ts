@@ -76,6 +76,7 @@ logo: "${await findFileByPrefix(slug, "public/images/brands", "/images/brands/")
 website: "${data.url}"
 images: []
 order: ${order} 
+categories: ["${brand.Category}"]
 ---
 
 ${data.description}
@@ -86,10 +87,10 @@ ${data.description}
 }
 
 
-// const brands = await getBrands();
-// for (const brand of brands) {
-//   console.log(`Processing brand ${brand.Name}`);
-//   await generateMarkdown(brand);
-// }
+const brands = await getBrands();
+for (const brand of brands) {
+  console.log(`Processing brand ${brand.Name}`);
+  await generateMarkdown(brand);
+}
 
-processBrands().then(() => console.log("Done"));
+// processBrands().then(() => console.log("Done"));
