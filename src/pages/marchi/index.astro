@@ -38,8 +38,8 @@ const description =
         </p>
       </div>
 
-      <!-- Filter Section -->
-      <div class="flex flex-wrap justify-center gap-2 mb-12">
+      <!-- Filter Section Desktop -->
+      <div class="hidden lg:flex flex-wrap justify-center gap-2 mb-12">
         <button
           data-category="all"
           class={cn(
@@ -64,6 +64,77 @@ const description =
         }
       </div>
 
+      <!-- Filter Section Mobile (Collapsible) -->
+      <div class="lg:hidden mb-8">
+        <button
+          id="mobile-filter-toggle"
+          class="w-full flex items-center justify-between p-4 bg-muted/50 border border-border/50 text-left font-medium text-sm hover:bg-muted transition-colors"
+        >
+          <span class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-muted-foreground"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+              />
+            </svg>
+            <span>Filtra per categoria</span>
+            <span id="active-category-label" class="text-primary font-semibold">
+              (Tutti)
+            </span>
+          </span>
+          <svg
+            id="mobile-filter-icon"
+            class="w-5 h-5 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+        <div
+          id="mobile-filter-content"
+          class="hidden border-x border-b border-border/50 bg-background"
+        >
+          <div class="flex flex-col p-4 gap-2">
+            <button
+              data-category="all"
+              class={cn(
+                buttonVariants({ variant: "default" }),
+                "filter-btn mobile-filter-btn w-full justify-start",
+              )}
+            >
+              Tutti i marchi
+            </button>
+            {
+              allCategories.map((category) => (
+                <button
+                  data-category={category}
+                  class={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "filter-btn mobile-filter-btn w-full justify-start",
+                  )}
+                >
+                  {category}
+                </button>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
       <!-- Brands Grid -->
       <div
         id="brands-grid"
@@ -86,10 +157,32 @@ const description =
 <script>
   document.addEventListener("astro:page-load", () => {
     initFilter();
+    initMobileFilterToggle();
   });
 
   // Also run on initial load if view transitions are not used or for first render
   initFilter();
+  initMobileFilterToggle();
+
+  function initMobileFilterToggle() {
+    const mobileToggle = document.getElementById("mobile-filter-toggle");
+    const mobileContent = document.getElementById("mobile-filter-content");
+    const mobileIcon = document.getElementById("mobile-filter-icon");
+
+    if (mobileToggle && mobileContent && mobileIcon) {
+      mobileToggle.addEventListener("click", () => {
+        const isHidden = mobileContent.classList.contains("hidden");
+
+        if (isHidden) {
+          mobileContent.classList.remove("hidden");
+          mobileIcon.style.transform = "rotate(180deg)";
+        } else {
+          mobileContent.classList.add("hidden");
+          mobileIcon.style.transform = "rotate(0deg)";
+        }
+      });
+    }
+  }
 
   function initFilter() {
     const filterBtns = document.querySelectorAll(".filter-btn");
@@ -97,6 +190,9 @@ const description =
       ".brand-item",
     ) as NodeListOf<HTMLElement>;
     const noResults = document.getElementById("no-results");
+    const mobileContent = document.getElementById("mobile-filter-content");
+    const mobileIcon = document.getElementById("mobile-filter-icon");
+    const activeCategoryLabel = document.getElementById("active-category-label");
 
     filterBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -134,7 +230,19 @@ const description =
         );
 
         const selectedCategory = btn.getAttribute("data-category");
+        const categoryText = btn.textContent?.trim() || "Tutti";
         let visibleCount = 0;
+
+        // Update mobile active category label
+        if (activeCategoryLabel) {
+          activeCategoryLabel.textContent = `(${categoryText})`;
+        }
+
+        // Close mobile filter after selection
+        if (btn.classList.contains("mobile-filter-btn") && mobileContent && mobileIcon) {
+          mobileContent.classList.add("hidden");
+          mobileIcon.style.transform = "rotate(0deg)";
+        }
 
         brandItems.forEach((item) => {
           const itemCategories =

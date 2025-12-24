@@ -1,13 +1,5 @@
 ---
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "./ui/card";
-import { cn } from "@/lib/utils";
-import {
     Monitor,
     UserCheck,
     FileText,
@@ -16,143 +8,115 @@ import {
     CreditCard,
     CircleParking,
     Layers,
-    ArrowRight,
 } from "lucide-react";
 
-// Bento Grid Items Definition
-const bentoItems = [
+const services = [
     {
         title: "Progettazione 3D & Rendering",
         description:
             "Visualizza il tuo nuovo bagno o pavimento in anteprima. Offriamo un servizio di progettazione d'interni avanzato per aiutarti a scegliere i migliori pavimenti, rivestimenti e arredo bagno.",
         icon: Monitor,
-        className: "md:col-span-2 md:row-span-1", // Large Hero Tile
-        keywords: ["Pavimenti", "Rivestimenti", "Arredo Bagno"],
-        // gradient: "from-primary/10 to-primary/5",
     },
     {
-        title: "Consulenza Gratuita",
+        title: "Consulenza Specializzata",
         description:
-            "I nostri esperti ti guidano nella scelta di sistemi di riscaldamento, condizionamento e solare termico efficienti.",
+            "I nostri esperti ti guidano nella scelta di materiali, sistemi di riscaldamento, condizionamento e solare termico più adatti al tuo progetto.",
         icon: UserCheck,
-        className: "md:col-span-1 md:row-span-1",
-        keywords: ["Riscaldamento", "Condizionamento", "Solare Termico"],
     },
     {
-        title: "Preventivi Gratuiti",
+        title: "Preventivi Dettagliati",
         description:
-            "Richiedi un preventivo dettagliato per infissi, porte interne, portoni blindati e scale su misura.",
+            "Richiedi un preventivo gratuito e dettagliato per infissi, porte interne, portoni blindati, scale su misura e tutti i materiali necessari.",
         icon: FileText,
-        className: "md:col-span-1 md:row-span-1",
-        keywords: ["Infissi", "Porte", "Scale"],
     },
     {
         title: "Vasto Assortimento",
         description:
-            "Tutto ciò che serve per la tua casa: colori, vernici, decorazioni, camini, rubinetteria, vasche e docce.",
+            "Oltre 1000 mq di showroom con tutto ciò che serve: pavimenti, rivestimenti, arredo bagno, colori, vernici, decorazioni, camini e rubinetteria.",
         icon: Layers,
-        className: "md:col-span-1 md:row-span-2", // Tall Tile
-        keywords: [
-            "Colori",
-            "Vernici",
-            "Decorazioni",
-            "Camini",
-            "Rubinetteria",
-        ],
+    },
+    {
+        title: "Consegna in Cantiere",
+        description:
+            "Trasporto diretto in cantiere con mezzi propri di materiali edili, collanti, cementi e tutti i prodotti ordinati.",
+        icon: Truck,
     },
     {
         title: "Assistenza Post Vendita",
-        description: "Supporto continuativo e garanzia su tutti i prodotti.",
+        description: "Supporto continuativo, garanzia su tutti i prodotti e disponibilità ricambi per una manutenzione nel tempo.",
         icon: HeartHandshake,
-        className: "md:col-span-1 md:row-span-1",
-    },
-    {
-        title: "Trasporto",
-        description:
-            "Consegna diretta in cantiere con mezzi propri di materiali tecnici, collanti e cementi.",
-        icon: Truck,
-        className: "md:col-span-2 md:row-span-1", // Wide Tile
-        keywords: ["Materiali tecnici", "Collanti", "Cementi"],
     },
     {
         title: "Pagamenti Personalizzati",
-        description: "Soluzioni finanziarie su misura per le tue esigenze.",
+        description: "Soluzioni finanziarie flessibili e su misura per professionisti, imprese e privati.",
         icon: CreditCard,
-        className: "md:col-span-1 md:row-span-1",
     },
     {
-        title: "Ampi Parcheggi",
-        description: "Comodo parcheggio riservato presso il nostro showroom.",
+        title: "Ampio Parcheggio",
+        description: "Parcheggio comodo e riservato presso il nostro showroom per clienti e mezzi di cantiere.",
         icon: CircleParking,
-        className: "md:col-span-1 md:row-span-1",
     },
 ];
 ---
 
-<section id="servizi" class="py-20 lg:py-32 bg-background">
+<section id="servizi" class="py-20 lg:py-32 bg-muted/30">
     <div class="container mx-auto px-4">
         <!-- Section Header -->
-        <div class="text-center mb-16">
+        <div class="mb-16">
             <span
-                class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+                class="inline-block text-primary font-semibold text-sm tracking-[0.2em] uppercase mb-4"
             >
                 I Nostri Servizi
             </span>
             <h2
-                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 max-w-3xl"
             >
-                Soluzioni Complete per l'Edilizia
+                Servizio completo per professionisti e privati
             </h2>
-            <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Offriamo consulenza, progettazione e materiali di qualità per
-                realizzare i tuoi progetti, dalla A alla Z.
+            <p class="text-lg text-muted-foreground max-w-3xl leading-relaxed">
+                Dalla consulenza alla consegna, supportiamo ogni fase del tuo progetto edilizio con competenza e professionalità.
             </p>
         </div>
 
-        <!-- Bento Grid -->
-        <div
-            class="grid grid-cols-1 md:grid-cols-4 auto-rows-[minmax(180px,auto)] gap-4"
-        >
+        <!-- Services Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {
-                bentoItems.map((item) => (
-                    <Card
-                        className={cn(
-                            "group relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30 flex flex-col",
-                            item.className,
-                            item.gradient ? `bg-gradient-to-br ${item.gradient}` : "bg-card"
-                        )}
-                    >
-                        <CardHeader className="relative z-10 pb-2">
-                             <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                <item.icon className="w-6 h-6" />
+                services.map((service) => (
+                    <div class="group">
+                        <div class="mb-6">
+                            <div class="w-16 h-16 bg-primary flex items-center justify-center mb-4">
+                                <service.icon className="w-8 h-8 text-primary-foreground" />
                             </div>
-                            <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                                {item.title}
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="relative z-10 flex-grow">
-                            <CardDescription className="text-base text-muted-foreground leading-relaxed mb-4">
-                                {item.description}
-                            </CardDescription>
-                            
-                            {item.keywords && (
-                                <div class="flex flex-wrap gap-2 mt-auto pt-4">
-                                    {item.keywords.map((kw) => (
-                                        <span class="inline-flex items-center text-xs font-medium text-primary/80 bg-primary/5 px-2 py-1 rounded-md">
-                                            {kw}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-
-                             <!-- Decorative background icon equivalent -->
-                            <div class="absolute -right-4 -bottom-4 opacity-0 group-hover:opacity-5 transition-opacity duration-300 scale-150 text-foreground pointer-events-none">
-                                <item.icon className="w-40 h-40" />
-                            </div>
-                        </CardContent>
-                    </Card>
+                            <h3 class="text-xl font-bold text-foreground mb-3">
+                                {service.title}
+                            </h3>
+                        </div>
+                        <p class="text-muted-foreground leading-relaxed">
+                            {service.description}
+                        </p>
+                    </div>
                 ))
             }
+        </div>
+
+        <!-- Call to Action -->
+        <div class="mt-20 p-8 lg:p-12 bg-background border-l-4 border-primary">
+            <div class="max-w-4xl">
+                <h3 class="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+                    Hai un progetto in mente?
+                </h3>
+                <p class="text-lg text-muted-foreground mb-6">
+                    Vieni a trovarci nel nostro showroom di Amantea o contattaci per una consulenza personalizzata. I nostri esperti sono a tua disposizione per consigliarti i migliori materiali e soluzioni.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contatti" class="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+                        Richiedi consulenza
+                    </a>
+                    <a href="/categorie" class="inline-flex items-center justify-center px-6 py-3 border-2 border-border text-foreground font-medium hover:border-primary hover:text-primary transition-colors">
+                        Esplora i prodotti
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

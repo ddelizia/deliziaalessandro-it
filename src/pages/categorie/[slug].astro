@@ -1,12 +1,12 @@
 ---
+import { cn } from "@/lib/utils";
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { Button, buttonVariants } from "../../components/ui/button";
 import BrandCard from "../../components/BrandCard.astro";
 import CTASection from "../../components/CTASection.astro";
-import { cn } from "@/lib/utils";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import { buttonVariants } from "../../components/ui/button";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
     const categories = await getCollection("categories");
@@ -30,6 +30,20 @@ const allBrands = await getCollection("brands");
 const relatedBrands = allBrands.filter((brand) =>
     brand.data.categories?.includes(category.data.name),
 );
+
+// Function to get image path based on slug
+const getImagePath = (slug: string) => {
+    const imageMap: Record<string, string> = {
+        "parquet-e-laminati": "parquet.jpg",
+        "collanti-e-materiali-tecnici": "collanti.jpg",
+        "infissi": "infissi.jpeg",
+    };
+    
+    if (imageMap[slug]) {
+        return `/images/categories/${imageMap[slug]}`;
+    }
+    return `/images/categories/${slug}.jpg`;
+};
 ---
 
 <Layout
@@ -38,42 +52,46 @@ const relatedBrands = allBrands.filter((brand) =>
 >
     <Header />
     <main class="min-h-screen bg-background">
-        <!-- Hero Section -->
-        <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-20 bg-muted/20">
-            <div
-                class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
-            >
-            </div>
-            <div class="container relative mx-auto px-4">
-                <div class="max-w-4xl mx-auto text-center">
-                    <a
-                        href="/categorie"
-                        class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-8 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full border border-border/50"
-                    >
-                        <svg
-                            class="w-4 h-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+        <!-- Hero Section with Image -->
+        <section class="relative bg-background">
+            <div class="relative h-[35vh] min-h-[300px] overflow-hidden">
+                <img
+                    src={getImagePath(category.slug)}
+                    alt={category.data.name}
+                    class="absolute inset-0 w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-linear-to-b from-black/60 via-black/50 to-background" />
+                <div class="container relative mx-auto px-4 h-full flex items-end pb-8">
+                    <div class="max-w-4xl">
+                        <a
+                            href="/categorie"
+                            class="inline-flex items-center gap-2 text-sm font-medium text-white/90 hover:text-white transition-colors mb-4 bg-white/10 backdrop-blur-sm px-4 py-2 border border-white/20"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                            <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
                                 stroke-width="2"
-                                d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                        Tutte le categorie
-                    </a>
-                    <h1
-                        class="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6"
-                    >
-                        {category.data.name}
-                    </h1>
-                    <p
-                        class="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto"
-                    >
-                        {category.data.description}
-                    </p>
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                            Tutte le categorie
+                        </a>
+                        <h1
+                            class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3"
+                        >
+                            {category.data.name}
+                        </h1>
+                        <p
+                            class="text-lg text-white/90 leading-relaxed max-w-3xl"
+                        >
+                            {category.data.description}
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -84,7 +102,7 @@ const relatedBrands = allBrands.filter((brand) =>
                     <!-- Table of Contents (Desktop) -->
                     {
                         headings.length > 0 && (
-                            <aside class="hidden lg:block w-64 flex-shrink-0">
+                            <aside class="hidden lg:block w-64 shrink-0">
                                 <div class="sticky top-32">
                                     <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider text-muted-foreground">
                                         In questa pagina
@@ -128,6 +146,67 @@ const relatedBrands = allBrands.filter((brand) =>
 
                     <!-- Content -->
                     <article class="flex-1 min-w-0">
+                        <!-- Mobile Table of Contents (Collapsible) -->
+                        {
+                            headings.length > 0 && (
+                                <div class="lg:hidden mb-8">
+                                    <button
+                                        id="mobile-toc-toggle"
+                                        class="w-full flex items-center justify-between p-4 bg-muted/50 border border-border/50 text-left font-medium text-sm hover:bg-muted transition-colors"
+                                    >
+                                        <span class="flex items-center gap-2">
+                                            <svg
+                                                class="w-5 h-5 text-muted-foreground"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M4 6h16M4 12h16M4 18h16"
+                                                />
+                                            </svg>
+                                            In questa pagina
+                                        </span>
+                                        <svg
+                                            id="mobile-toc-icon"
+                                            class="w-5 h-5 transition-transform"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M19 9l-7 7-7-7"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <div
+                                        id="mobile-toc-content"
+                                        class="hidden border-x border-b border-border/50 bg-background"
+                                    >
+                                        <nav class="flex flex-col p-4 gap-2">
+                                            {headings.map((heading) => (
+                                                <a
+                                                    href={`#${heading.slug}`}
+                                                    class={`text-sm py-2 transition-colors hover:text-primary mobile-toc-link ${
+                                                        heading.depth === 2
+                                                            ? "text-foreground font-medium"
+                                                            : "text-muted-foreground pl-4"
+                                                    }`}
+                                                >
+                                                    {heading.text}
+                                                </a>
+                                            ))}
+                                        </nav>
+                                    </div>
+                                </div>
+                            )
+                        }
                         <div
                             class="prose prose-lg prose-slate dark:prose-invert max-w-none
                             prose-headings:scroll-mt-32
@@ -268,4 +347,34 @@ const relatedBrands = allBrands.filter((brand) =>
         </section>
     </main>
     <Footer />
+
+    <!-- Mobile TOC Toggle Script -->
+    <script>
+        const mobileToggle = document.getElementById("mobile-toc-toggle");
+        const mobileContent = document.getElementById("mobile-toc-content");
+        const mobileIcon = document.getElementById("mobile-toc-icon");
+        const mobileLinks = document.querySelectorAll(".mobile-toc-link");
+
+        if (mobileToggle && mobileContent && mobileIcon) {
+            mobileToggle.addEventListener("click", () => {
+                const isHidden = mobileContent.classList.contains("hidden");
+                
+                if (isHidden) {
+                    mobileContent.classList.remove("hidden");
+                    mobileIcon.style.transform = "rotate(180deg)";
+                } else {
+                    mobileContent.classList.add("hidden");
+                    mobileIcon.style.transform = "rotate(0deg)";
+                }
+            });
+
+            // Close TOC when a link is clicked
+            mobileLinks.forEach((link) => {
+                link.addEventListener("click", () => {
+                    mobileContent.classList.add("hidden");
+                    mobileIcon.style.transform = "rotate(0deg)";
+                });
+            });
+        }
+    </script>
 </Layout>
