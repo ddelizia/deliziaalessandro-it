@@ -1,14 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "./ui/card";
-import { buttonVariants } from "./ui/button";
-import { cn } from "@/lib/utils";
 import { Image } from 'astro:assets';
 
 const brands = (await getCollection("brands")).sort(
@@ -16,91 +7,54 @@ const brands = (await getCollection("brands")).sort(
 );
 ---
 
-<section id="brand" class="py-20 lg:py-32 bg-muted/30">
+<section id="brand" class="py-20 lg:py-32 bg-background">
     <div class="container mx-auto px-4">
         <!-- Section Header -->
-        <div class="text-center mb-16">
+        <div class="mb-16">
             <span
-                class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+                class="inline-block text-primary font-semibold text-sm tracking-[0.2em] uppercase mb-4"
             >
                 I Nostri Partner
             </span>
             <h2
-                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 max-w-3xl"
             >
-                Brand di Qualità
+                Marchi leader nel settore edilizio
             </h2>
-            <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Collaboriamo con i migliori marchi del settore per offrirvi
-                prodotti di qualità superiore e design all'avanguardia.
+            <p class="text-lg text-muted-foreground max-w-3xl leading-relaxed">
+                Collaboriamo esclusivamente con i migliori produttori italiani e internazionali per garantire qualità, affidabilità e innovazione.
             </p>
         </div>
 
         <!-- Brands Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
             {
-                brands.slice(0, 6).map((brand) => (
+                brands.slice(0, 12).map((brand) => (
                     <a href={`/marchi/${brand.slug}`} class="group block">
-                        <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/50 hover:border-primary/30 bg-background">
-                            <CardHeader className="text-center pb-4">
-                                {brand.data.logo && (
-                                    <div class="w-24 h-24 mx-auto mb-4 rounded-xl bg-white flex items-center justify-center p-4 border border-border/50 group-hover:border-primary/30 transition-colors">
-                                        <Image
-                                            src={brand.data.logo}
-                                            alt={`Logo ${brand.data.name}`}
-                                            width={128}
-                                            height={128}
-                                            class="max-w-full max-h-full object-contain"
-                                        />
-                                    </div>
-                                )}
-                                <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors">
-                                    {brand.data.name}
-                                </CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <CardDescription className="text-muted-foreground text-center leading-relaxed line-clamp-3">
-                                    {brand.data.description}
-                                </CardDescription>
-                                <div class="mt-4 text-center">
-                                    <span class="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
-                                        Scopri di più
-                                        <svg
-                                            class="w-4 h-4 transition-transform group-hover:translate-x-1"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M9 5l7 7-7 7"
-                                            />
-                                        </svg>
-                                    </span>
-                                </div>
-                            </CardContent>
-                        </Card>
+                        <div class="bg-white border border-border/50 p-6 h-32 flex items-center justify-center hover:border-primary transition-colors">
+                            {brand.data.logo && (
+                                <Image
+                                    src={brand.data.logo}
+                                    alt={`Logo ${brand.data.name}`}
+                                    width={128}
+                                    height={128}
+                                    class="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all"
+                                />
+                            )}
+                        </div>
                     </a>
                 ))
             }
         </div>
 
         {
-            brands.length > 6 && (
-                <div class="mt-16 text-center">
+            brands.length > 12 && (
+                <div class="mt-12">
                     <a
                         href="/marchi"
-                        class={cn(
-                            buttonVariants({
-                                variant: "outline",
-                                size: "lg",
-                            }),
-                            "px-8 rounded-full border-2",
-                        )}
+                        class="inline-flex items-center px-6 py-3 border-2 border-border text-foreground font-medium hover:border-primary hover:text-primary transition-colors"
                     >
-                        Vedi tutti i marchi
+                        Vedi tutti i {brands.length} marchi
                     </a>
                 </div>
             )

@@ -2,75 +2,82 @@
 import { Image } from 'astro:assets';
 ---
 
-<section class="py-16 bg-muted/30">
+<section class="py-20 lg:py-32 bg-muted/10">
   <div class="container mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-foreground mb-4">I Nostri Partner</h2>
-      <p class="text-muted-foreground max-w-2xl mx-auto">
-        Siamo orgogliosi di far parte dei più importanti consorzi e associazioni
-        del settore.
+    <div class="mb-16 max-w-3xl">
+      <span class="inline-block text-primary font-semibold text-sm tracking-[0.2em] uppercase mb-4">
+        Partner
+      </span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+        I Nostri Partner
+      </h2>
+      <p class="text-lg text-muted-foreground leading-relaxed">
+        Siamo orgogliosi di far parte dei più importanti consorzi e associazioni del settore.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div class="grid sm:grid-cols-3 gap-8 max-w-5xl">
       <!-- MADE -->
-      <div
-        class="bg-background rounded-xl p-8 shadow-sm border border-border/50 flex flex-col items-center text-center transition-all hover:shadow-lg"
-      >
-        <div class="h-24 flex items-center justify-center mb-6 w-full">
+      <div class="bg-white border border-border/50 p-8 flex flex-col">
+        <div class="h-20 flex items-center justify-center mb-6">
           <Image
             src="/images/partners/made.png"
-            alt="Logo Gruppo MADE"
-            width={180}
+            alt="Gruppo MADE Italia"
+            width={160}
             height={60}
-            class="max-h-full max-w-[180px] object-contain"
+            class="max-h-full max-w-full object-contain grayscale hover:grayscale-0 transition-all"
           />
         </div>
-        <p class="text-muted-foreground text-sm leading-relaxed">
-          MADE è il gruppo per l’edilizia italiana, punto di riferimento unico
+        <div class="border-t border-border/50 pt-6">
+          <h3 class="font-bold text-foreground mb-2">Gruppo MADE Italia</h3>
+          <p class="text-sm text-muted-foreground">
+            MADE è il gruppo per l’edilizia italiana, punto di riferimento unico
           per tutto quello che stai cercando per costruire casa.
-        </p>  
+          </p>
+        </div>
       </div>
 
       <!-- DELTA -->
-      <div
-        class="bg-background rounded-xl p-8 shadow-sm border border-border/50 flex flex-col items-center text-center transition-all hover:shadow-lg"
-      >
-        <div class="h-24 flex items-center justify-center mb-6 w-full">
+      <div class="bg-white border border-border/50 p-8 flex flex-col">
+        <div class="h-20 flex items-center justify-center mb-6">
           <Image
             src="/images/partners/delta.png"
-            alt="Logo Delta S.p.A."
-            width={180}
+            alt="Consorzio Delta"
+            width={160}
             height={60}
-            class="max-h-full max-w-[180px] object-contain"
+            class="max-h-full max-w-full object-contain grayscale hover:grayscale-0 transition-all"
           />
         </div>
-        <p class="text-muted-foreground text-sm leading-relaxed">
-          Nel 1989, la Ditta, insieme ad altri soci Nazionali, Costituisce il
+        <div class="border-t border-border/50 pt-6">
+          <h3 class="font-bold text-foreground mb-2">Consorzio Delta</h3>
+          <p class="text-sm text-muted-foreground">
+            Nel 1989, la Ditta, insieme ad altri soci Nazionali, Costituisce il
           DELTA S.P.A. Oggi il CONSORZIO, è il PRIMO GRUPPO in Italia operante
           nel settore idro-termo-sanitario. L'azienda DELIZIA ALESSANDRO srl è
           orgogliosa di essere SOCIO FONDATORE di questo Gruppo.
-        </p>
+          </p>
+        </div>
       </div>
 
       <!-- ANGAISA -->
-      <div
-        class="bg-background rounded-xl p-8 shadow-sm border border-border/50 flex flex-col items-center text-center transition-all hover:shadow-lg"
-      >
-        <div class="h-24 flex items-center justify-center mb-6 w-full">
+      <div class="bg-white border border-border/50 p-8 flex flex-col">
+        <div class="h-20 flex items-center justify-center mb-6">
           <Image
             src="/images/partners/angaisa.png"
-            alt="Logo Angaisa"
-            width={180}
+            alt="ANGAISA"
+            width={160}
             height={60}
-            class="max-h-full max-w-[180px] object-contain"
+            class="max-h-full max-w-full object-contain grayscale hover:grayscale-0 transition-all"
           />
         </div>
-        <p class="text-muted-foreground text-sm leading-relaxed">
-          Nel 1985 viene chiamata a far parte dell'Angaisa, associazione
+        <div class="border-t border-border/50 pt-6">
+          <h3 class="font-bold text-foreground mb-2">ANGAISA</h3>
+          <p class="text-sm text-muted-foreground">
+            Nel 1985 viene chiamata a far parte dell'Angaisa, associazione
           nazionale Commercianti Articoli Idrosanitari, Climatizzazione,
           Pavimenti, Rivestimenti ed Arredo-bagno.
-        </p>
+          </p>
+        </div>
       </div>
     </div>
   </div>

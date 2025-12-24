@@ -1,143 +1,96 @@
 ---
-import { Separator } from "./ui/separator";
 ---
 
 <section id="chi-siamo" class="py-20 lg:py-32 bg-background">
     <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <!-- Timeline -->
-            <div class="order-2 lg:order-1">
-                <div class="relative">
-                    <!-- Timeline line -->
-                    <div class="absolute left-8 top-0 bottom-0 w-px bg-border">
-                    </div>
+        <!-- Header -->
+        <div class="mb-16 max-w-3xl">
+            <span
+                class="inline-block text-primary font-semibold text-sm tracking-[0.2em] uppercase mb-4"
+            >
+                Chi Siamo
+            </span>
+            <h2
+                class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+            >
+                Dal 1950, esperienza e qualità per l'edilizia
+            </h2>
+            <p class="text-lg text-muted-foreground leading-relaxed">
+                Delizia Alessandro S.r.l. è il punto di riferimento per materiali edili, arredobagno e finiture ad Amantea e provincia di Cosenza. Tre generazioni di competenza al servizio di professionisti, imprese e privati.
+            </p>
+        </div>
 
-                    <!-- Timeline items -->
-                    <div class="space-y-12">
-                        <div class="relative flex gap-6">
-                            <div
-                                class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg flex-shrink-0 z-10"
-                            >
-                                1950
-                            </div>
-                            <div class="pt-3">
-                                <h4
-                                    class="font-bold text-lg text-foreground mb-2"
-                                >
-                                    La Fondazione
-                                </h4>
-                                <p class="text-muted-foreground">
-                                    Nasce Delizia Alessandro, una piccola
-                                    rivendita di materiali edili ad Amantea,
-                                    fondata sulla passione per il settore e
-                                    l'impegno verso la qualità.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="relative flex gap-6">
-                            <div
-                                class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground font-bold text-lg flex-shrink-0 z-10"
-                            >
-                                1980
-                            </div>
-                            <div class="pt-3">
-                                <h4
-                                    class="font-bold text-lg text-foreground mb-2"
-                                >
-                                    L'Espansione
-                                </h4>
-                                <p class="text-muted-foreground">
-                                    Ampliamento dell'attività con l'introduzione
-                                    del reparto arredobagno e l'apertura del
-                                    primo showroom dedicato alle finiture.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="relative flex gap-6">
-                            <div
-                                class="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold text-lg flex-shrink-0 z-10"
-                            >
-                                Oggi
-                            </div>
-                            <div class="pt-3">
-                                <h4
-                                    class="font-bold text-lg text-foreground mb-2"
-                                >
-                                    Partner di Fiducia
-                                </h4>
-                                <p class="text-muted-foreground">
-                                    Tre generazioni di esperienza al servizio di
-                                    professionisti e privati. Parte di Gruppo
-                                    MADE Italia e Gruppo Delta per garantire
-                                    sempre il meglio.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Stats -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+            <div class="bg-muted/30 p-8 border-l-4 border-primary">
+                <div class="text-5xl font-bold text-foreground mb-2">1950</div>
+                <div class="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                    Anno di fondazione
                 </div>
             </div>
+            <div class="bg-muted/30 p-8 border-l-4 border-primary">
+                <div class="text-5xl font-bold text-foreground mb-2">70+</div>
+                <div class="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                    Anni di esperienza
+                </div>
+            </div>
+            <div class="bg-muted/30 p-8 border-l-4 border-primary">
+                <div class="text-5xl font-bold text-foreground mb-2">1000+</div>
+                <div class="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                    mq di Showroom
+                </div>
+            </div>
+            <div class="bg-muted/30 p-8 border-l-4 border-primary">
+                <div class="text-5xl font-bold text-foreground mb-2">50+</div>
+                <div class="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                    Marchi Partner
+                </div>
+            </div>
+        </div>
 
-            <!-- Content -->
-            <div class="order-1 lg:order-2">
-                <span
-                    class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
-                >
-                    Chi Siamo
-                </span>
-                <h2
-                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
-                >
-                    Oltre 70 anni di <span class="text-primary">esperienza</span
-                    >
-                </h2>
-                <p class="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    Dal 1950, Delizia Alessandro S.r.l. è il punto di
-                    riferimento per aziende e privati che cercano materiali
-                    edili di qualità, soluzioni per l'arredobagno e finiture
-                    d'eccellenza nel territorio di Amantea e della provincia di
-                    Cosenza.
-                </p>
-                <p class="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    La nostra forza? L'esperienza tramandata di generazione in
-                    generazione, unita alla continua ricerca di innovazione e
-                    all'attenzione verso le esigenze di ogni cliente.
-                </p>
-
-                <Separator className="my-8" />
-
-                <!-- Stats -->
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div
-                            class="text-3xl sm:text-4xl font-bold text-primary mb-1"
-                        >
-                            70+
-                        </div>
-                        <div class="text-sm text-muted-foreground">
-                            Anni di attività
-                        </div>
+        <!-- Timeline -->
+        <div class="max-w-5xl">
+            <h3 class="text-2xl font-bold text-foreground mb-10">La nostra storia</h3>
+            <div class="space-y-8">
+                <div class="flex gap-8 items-start">
+                    <div class="w-24 shrink-0 bg-primary text-primary-foreground font-bold text-xl p-4 text-center">
+                        1950
                     </div>
-                    <div class="text-center">
-                        <div
-                            class="text-3xl sm:text-4xl font-bold text-primary mb-1"
-                        >
-                            500+
-                        </div>
-                        <div class="text-sm text-muted-foreground">
-                            mq Showroom
-                        </div>
+                    <div class="flex-1 pt-2">
+                        <h4 class="font-bold text-xl text-foreground mb-2">
+                            Nascita dell'azienda
+                        </h4>
+                        <p class="text-muted-foreground">
+                            Delizia Alessandro apre i battenti ad Amantea come rivendita di materiali edili, costruendo fin da subito una reputazione basata su qualità e affidabilità.
+                        </p>
                     </div>
-                    <div class="text-center">
-                        <div
-                            class="text-3xl sm:text-4xl font-bold text-primary mb-1"
-                        >
-                            1000+
-                        </div>
-                        <div class="text-sm text-muted-foreground">
-                            Clienti soddisfatti
-                        </div>
+                </div>
+
+                <div class="flex gap-8 items-start">
+                    <div class="w-24 shrink-0 bg-primary text-primary-foreground font-bold text-xl p-4 text-center">
+                        1980
+                    </div>
+                    <div class="flex-1 pt-2">
+                        <h4 class="font-bold text-xl text-foreground mb-2">
+                            Espansione e diversificazione
+                        </h4>
+                        <p class="text-muted-foreground">
+                            L'azienda si amplia introducendo il settore arredobagno e aprendo il primo showroom dedicato, diventando punto di riferimento per le finiture di interni.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-8 items-start">
+                    <div class="w-24 shrink-0 bg-primary text-primary-foreground font-bold text-xl p-4 text-center">
+                        Oggi
+                    </div>
+                    <div class="flex-1 pt-2">
+                        <h4 class="font-bold text-xl text-foreground mb-2">
+                            Leader sul territorio
+                        </h4>
+                        <p class="text-muted-foreground">
+                            Oltre 1000 mq di showroom, 50+ marchi partner e affiliazione ai consorzi MADE Italia, Delta e ANGAISA. Un team esperto per supportare ogni progetto dalla consulenza alla consegna.
+                        </p>
                     </div>
                 </div>
             </div>

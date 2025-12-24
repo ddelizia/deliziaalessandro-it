@@ -2,109 +2,64 @@
 import { Button } from "./ui/button";
 ---
 
-<section id="showroom" class="py-20 lg:py-32 bg-muted/30">
+<section id="showroom" class="py-20 lg:py-32 bg-background">
     <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Content -->
             <div>
                 <span
-                    class="inline-block text-primary font-semibold text-sm tracking-wider uppercase mb-4"
+                    class="inline-block text-primary font-semibold text-sm tracking-[0.2em] uppercase mb-4"
                 >
                     Showroom
                 </span>
                 <h2
-                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+                    class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 max-w-xl"
                 >
-                    Vieni a trovarci nel nostro showroom
+                    Oltre 1000 mq di esposizione
                 </h2>
-                <p class="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    Oltre 500 mq dedicati all'arredobagno e alle finiture. Tocca
-                    con mano i materiali, confronta colori e texture, e lasciati
-                    consigliare dai nostri esperti per realizzare il bagno e gli
-                    ambienti dei tuoi sogni.
+                <p class="text-lg text-muted-foreground mb-8 leading-relaxed max-w-xl">
+                    Vieni a toccare con mano la qualità dei nostri materiali. Il nostro showroom ad Amantea ti permette di vedere, confrontare e scegliere tra centinaia di soluzioni per pavimenti, rivestimenti, arredo bagno e finiture.
                 </p>
 
                 <div class="space-y-4 mb-8">
-                    <div class="flex items-start gap-3">
-                        <div
-                            class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                        >
-                            <svg
-                                class="w-3.5 h-3.5 text-primary"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-1 h-16 bg-primary shrink-0"></div>
                         <div>
-                            <h4 class="font-semibold text-foreground">
+                            <h4 class="font-bold text-foreground mb-1">
                                 Centro Tintometrico
                             </h4>
                             <p class="text-sm text-muted-foreground">
-                                Migliaia di colori disponibili, miscelati al
-                                momento per risultati perfetti
+                                Migliaia di colori disponibili, miscelati al momento per risultati perfetti
                             </p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-3">
-                        <div
-                            class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                        >
-                            <svg
-                                class="w-3.5 h-3.5 text-primary"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-1 h-16 bg-primary shrink-0"></div>
                         <div>
-                            <h4 class="font-semibold text-foreground">
-                                Consulenza Personalizzata
+                            <h4 class="font-bold text-foreground mb-1">
+                                Consulenza Specializzata
                             </h4>
                             <p class="text-sm text-muted-foreground">
-                                Team di esperti per aiutarti nella scelta dei
-                                prodotti più adatti
+                                Team di esperti per guidarti nella scelta dei materiali più adatti al tuo progetto
                             </p>
                         </div>
                     </div>
-                    <div class="flex items-start gap-3">
-                        <div
-                            class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5"
-                        >
-                            <svg
-                                class="w-3.5 h-3.5 text-primary"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-1 h-16 bg-primary shrink-0"></div>
                         <div>
-                            <h4 class="font-semibold text-foreground">
-                                Marchi Premium
+                            <h4 class="font-bold text-foreground mb-1">
+                                Marchi Leader
                             </h4>
                             <p class="text-sm text-muted-foreground">
-                                Solo i migliori brand del settore arredobagno e
-                                finiture
+                                Solo i migliori produttori italiani e internazionali del settore edilizio
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <a href="#contatti">
-                    <Button client:load size="lg" className="px-8">
-                        Prenota una Visita
+                    <Button client:load size="lg" className="px-8 py-6 text-base">
+                        Prenota una visita
                     </Button>
                 </a>
             </div>
@@ -112,111 +67,35 @@ import { Button } from "./ui/button";
             <!-- Image Grid -->
             <div class="grid grid-cols-2 gap-4">
                 <div class="space-y-4">
-                    <div
-                        class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-secondary/30 to-secondary/10 flex items-center justify-center overflow-hidden"
-                    >
-                        <div class="text-center p-6">
-                            <div
-                                class="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center"
-                            >
-                                <svg
-                                    class="w-8 h-8 text-primary"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <p class="text-sm font-medium text-foreground">
-                                Ceramiche e Piastrelle
-                            </p>
-                        </div>
+                    <div class="aspect-[4/5] overflow-hidden border border-border/50 bg-muted">
+                        <img 
+                            src="/images/categories/pavimenti-e-rivestimenti.jpg" 
+                            alt="Pavimenti e rivestimenti"
+                            class="w-full h-full object-cover"
+                        />
                     </div>
-                    <div
-                        class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center"
-                    >
-                        <div class="text-center p-4">
-                            <div
-                                class="w-12 h-12 mx-auto mb-3 rounded-lg bg-primary/10 flex items-center justify-center"
-                            >
-                                <svg
-                                    class="w-6 h-6 text-primary"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <p class="text-sm font-medium text-foreground">
-                                Centro Colori
-                            </p>
-                        </div>
+                    <div class="aspect-[4/3] overflow-hidden border border-border/50 bg-muted">
+                        <img 
+                            src="/images/categories/colori-e-vernici.jpg" 
+                            alt="Colori e vernici"
+                            class="w-full h-full object-cover"
+                        />
                     </div>
                 </div>
                 <div class="space-y-4 pt-8">
-                    <div
-                        class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center"
-                    >
-                        <div class="text-center p-4">
-                            <div
-                                class="w-12 h-12 mx-auto mb-3 rounded-lg bg-accent/20 flex items-center justify-center"
-                            >
-                                <svg
-                                    class="w-6 h-6 text-accent"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <p class="text-sm font-medium text-foreground">
-                                Arredobagno
-                            </p>
-                        </div>
+                    <div class="aspect-[4/3] overflow-hidden border border-border/50 bg-muted">
+                        <img 
+                            src="/images/categories/mobili-bagno.jpg" 
+                            alt="Mobili bagno"
+                            class="w-full h-full object-cover"
+                        />
                     </div>
-                    <div
-                        class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center overflow-hidden"
-                    >
-                        <div class="text-center p-6">
-                            <div
-                                class="w-16 h-16 mx-auto mb-4 rounded-xl bg-secondary/20 flex items-center justify-center"
-                            >
-                                <svg
-                                    class="w-8 h-8 text-secondary"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <p class="text-sm font-medium text-foreground">
-                                Parquet e Laminati
-                            </p>
-                        </div>
+                    <div class="aspect-[4/5] overflow-hidden border border-border/50 bg-muted">
+                        <img 
+                            src="/images/categories/parquet.jpg" 
+                            alt="Parquet"
+                            class="w-full h-full object-cover"
+                        />
                     </div>
                 </div>
             </div>

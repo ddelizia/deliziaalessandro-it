@@ -39,12 +39,12 @@ const description =
       </div>
 
       <!-- Filter Section Desktop -->
-      <div class="hidden lg:flex flex-wrap justify-center gap-2 mb-12">
+      <div class="hidden lg:flex flex-wrap gap-2 mb-12">
         <button
           data-category="all"
           class={cn(
             buttonVariants({ variant: "default" }),
-            "filter-btn rounded-full px-6",
+            "filter-btn px-6",
           )}
         >
           Tutti
@@ -55,7 +55,7 @@ const description =
               data-category={category}
               class={cn(
                 buttonVariants({ variant: "outline" }),
-                "filter-btn rounded-full px-6",
+                "filter-btn px-6",
               )}
             >
               {category}
