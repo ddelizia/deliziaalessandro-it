@@ -34,4 +34,12 @@ const categories = defineCollection({
     }),
 });
 
-export const collections = { blog, brands, categories };
+const pages = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+    }),
+});
+
+export const collections = { blog, brands, categories, pages };

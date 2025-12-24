@@ -1,0 +1,50 @@
+---
+import Footer from '@/components/Footer.astro';
+import Header from '@/components/Header.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages' as any);
+  return pages.map((page: any) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+interface Props {
+  page: any;
+}
+
+const { page } = Astro.props;
+const { Content } = await page.render();
+---
+
+<Layout title={page.data.title} description={page.data.description}>
+  <Header />
+  <main>
+    <!-- Header Section -->
+    <section class="py-16 lg:py-32 bg-linear-to-b from-muted/20 to-background border-border/50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl border-l-4 border-primary pl-6">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+            {page.data.title}
+          </h1>
+          <p class="text-lg sm:text-xl text-muted-foreground leading-relaxed">
+            {page.data.description}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="">
+      <div class="container mx-auto px-4">
+        <div class="prose prose-sm sm:prose-base lg:prose-lg prose-headings:font-bold prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-primary prose-a:underline prose-strong:text-foreground prose-code:text-primary prose-pre:bg-muted/50 prose-pre:border prose-pre:border-border/50">
+          <Content />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
